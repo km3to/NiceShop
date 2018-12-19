@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.Web", "NiceShop.Web\NiceShop.Web.csproj", "{F211DD24-1615-40FD-943C-1058ECCEC659}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F211DD24-1615-40FD-943C-1058ECCEC659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F211DD24-1615-40FD-943C-1058ECCEC659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F211DD24-1615-40FD-943C-1058ECCEC659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F211DD24-1615-40FD-943C-1058ECCEC659}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A9BF4BE-1934-4CAE-B677-D5440D3D617E}
+	EndGlobalSection
+EndGlobal
