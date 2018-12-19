@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NiceShop.Web.Areas.Identity.Data;
-using NiceShop.Web.Models;
+using NiceShop.Data;
+using NiceShop.Data.Models;
 
 namespace NiceShop.Web
 {
@@ -34,7 +35,16 @@ namespace NiceShop.Web
                     this.Configuration.GetConnectionString("DefaultConnection")));
 
             // TODO: Change to AddIdentity<User, Role>
-            services.AddDefaultIdentity<AppUser>()
+            // TODO: Possible problem with new PasswordOptions
+            services.AddDefaultIdentity<AppUser>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 3;
+                    options.Password.RequiredUniqueChars = 1;
+                })
                 .AddEntityFrameworkStores<NiceShopDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
