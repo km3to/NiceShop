@@ -67,9 +67,19 @@ namespace NiceShop.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+
+            // TODO: Bring it back
+            //app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "administration",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+            });
 
             app.UseMvc(routes =>
             {

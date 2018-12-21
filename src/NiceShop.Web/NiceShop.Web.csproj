@@ -20,4 +20,9 @@
     <ProjectReference Include="..\NiceShop.Data\NiceShop.Data.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Models\" />
+  </ItemGroup>
+
 </Project>

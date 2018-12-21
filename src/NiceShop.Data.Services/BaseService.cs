@@ -4,14 +4,14 @@ using NiceShop.Data.Models;
 
 namespace NiceShop.Data.Services
 {
-    public class BaseService<TEntity>
+    public abstract class BaseService<TEntity>
         where TEntity : BaseModel
     {
         private readonly DbSet<TEntity> dbSet;
 
         protected NiceShopDbContext Db { get; }
 
-        public BaseService(NiceShopDbContext db)
+        protected BaseService(NiceShopDbContext db)
         {
             this.Db = db;
             this.dbSet = this.Db.Set<TEntity>();
