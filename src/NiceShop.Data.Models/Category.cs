@@ -4,16 +4,21 @@ namespace NiceShop.Data.Models
 {
     public class Category : BaseModel
     {
+        public Category()
+        {
+            this.Products = new HashSet<Product>();
+        }
+
         public string Name { get; set; }
 
         public string ParentCategoryId { get; set; }
 
-        public Category ParentCategory { get; set; }
+        public virtual Category ParentCategory { get; set; }
 
         public string ChildCategoryId { get; set; }
 
-        public Category ChildCategory { get; set; }
+        public virtual Category ChildCategory { get; set; }
 
-        public IEnumerable<Product> Products { get; set; }
+        public virtual IEnumerable<Product> Products { get; set; }
     }
 }

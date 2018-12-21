@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.Web", "NiceShop.Web\NiceShop.Web.csproj", "{F211DD24-1615-40FD-943C-1058ECCEC659}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Web", "NiceShop.Web\NiceShop.Web.csproj", "{F211DD24-1615-40FD-943C-1058ECCEC659}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.Data", "NiceShop.Data\NiceShop.Data.csproj", "{F35B9106-0257-4B64-AEE8-77DE5882B81E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Data", "NiceShop.Data\NiceShop.Data.csproj", "{F35B9106-0257-4B64-AEE8-77DE5882B81E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.Data.Models", "NiceShop.Data.Models\NiceShop.Data.Models.csproj", "{EC5115BE-B9B0-4D37-954A-0A2FE18EAA43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Data.Models", "NiceShop.Data.Models\NiceShop.Data.Models.csproj", "{EC5115BE-B9B0-4D37-954A-0A2FE18EAA43}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.Data.Services", "NiceShop.Data.Services\NiceShop.Data.Services.csproj", "{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Data.Services", "NiceShop.Data.Services\NiceShop.Data.Services.csproj", "{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.ViewModels", "NiceShop.ViewModels\NiceShop.ViewModels.csproj", "{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
