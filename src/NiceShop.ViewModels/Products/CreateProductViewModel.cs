@@ -1,5 +1,6 @@
 ﻿namespace NiceShop.ViewModels.Products
 {
+    // TODO: Attributes to all properties
     public class CreateProductViewModel
     {
         public string Code { get; set; }
