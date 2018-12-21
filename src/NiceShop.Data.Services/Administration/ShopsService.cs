@@ -1,19 +1,24 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.ViewModels.Shops;
 
 namespace NiceShop.Data.Services.Administration
 {
-    public class ShopsService : BaseService<Shop>, IShopsService
+    public class ShopsService : IShopsService
     {
-        public ShopsService(NiceShopDbContext db) 
-            : base(db)
+        private readonly NiceShopDbContext db;
+
+        public ShopsService(NiceShopDbContext db)
         {
+            this.db = db;
         }
 
-        public async Task CreateAsync(CreateShopViewModel viewModel)
+        public async Task<string> CreateAsync(CreateShopViewModel viewModel)
         {
+            // TODO: Use automapper
             var shop = new Shop
             {
                 Name = viewModel.Name,
@@ -21,7 +26,34 @@ namespace NiceShop.Data.Services.Administration
                 Description = viewModel.Description,
             };
 
-            await this.AddAsync(shop);
+            // TODO: Proper handling
+            try
+            {
+                await this.db.Shops.AddAsync(shop);
+                await this.db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return shop.Id;
+        }
+
+        public CreateShopViewModel GetById(string id)
+        {
+            // TODO: Use automapper
+            var shop = this.db.Shops
+                .Where(x => x.Id == id)
+                .Select(x => new CreateShopViewModel
+                {
+                    Name = x.Name,
+                    Address = x.Address,
+                    Description = x.Description,
+                })
+                .FirstOrDefault();
+
+            return shop;
         }
     }
 }

@@ -18,29 +18,29 @@ namespace NiceShop.Data.Services
             this.dbSet = this.Db.Set<TEntity>();
         }
 
-        public TEntity GetById(string id)
+        protected virtual TEntity GetById(string id)
         {
             return this.dbSet.FirstOrDefault(x => x.Id == id);
         }
 
-        public IQueryable<TEntity> GetAll()
+        protected virtual IQueryable<TEntity> GetAll()
         {
             return this.dbSet;
         }
 
-        public async Task AddAsync(TEntity entity)
+        protected virtual async Task AddAsync(TEntity entity)
         {
             this.dbSet.Add(entity);
             await this.Db.SaveChangesAsync();
         }
 
-        public async Task Delete(TEntity entity)
+        protected virtual async Task Delete(TEntity entity)
         {
             this.dbSet.Remove(entity);
             await this.Db.SaveChangesAsync();
         }
 
-        public async Task Edit(TEntity entity)
+        protected virtual async Task Edit(TEntity entity)
         {
             this.Db.Entry(entity).State = EntityState.Modified;
             await this.Db.SaveChangesAsync();

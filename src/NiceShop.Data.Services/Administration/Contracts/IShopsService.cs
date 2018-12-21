@@ -5,6 +5,8 @@ namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IShopsService
     {
-        Task CreateAsync(CreateShopViewModel viewModel);
+        CreateShopViewModel GetById(string id);
+
+        Task<string> CreateAsync(CreateShopViewModel viewModel);
     }
 }
