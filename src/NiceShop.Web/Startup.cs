@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NiceShop.Data;
 using NiceShop.Data.Models;
+using NiceShop.Data.Services.Administration;
+using NiceShop.Data.Services.Administration.Contracts;
 
 namespace NiceShop.Web
 {
@@ -48,6 +50,8 @@ namespace NiceShop.Web
                 .AddEntityFrameworkStores<NiceShopDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IShopsService, ShopsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

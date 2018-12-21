@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using NiceShop.Data.Models;
 
@@ -27,22 +28,22 @@ namespace NiceShop.Data.Services
             return this.dbSet;
         }
 
-        public void Add(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             this.dbSet.Add(entity);
-            this.Db.SaveChanges();
+            await this.Db.SaveChangesAsync();
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
             this.dbSet.Remove(entity);
-            this.Db.SaveChanges();
+            await this.Db.SaveChangesAsync();
         }
 
-        public void Edit(TEntity entity)
+        public async Task Edit(TEntity entity)
         {
             this.Db.Entry(entity).State = EntityState.Modified;
-            this.Db.SaveChanges();
+            await this.Db.SaveChangesAsync();
         }
     }
 }
