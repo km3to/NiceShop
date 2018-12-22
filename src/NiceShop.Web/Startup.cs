@@ -53,6 +53,7 @@ namespace NiceShop.Web
 
             services.AddScoped<IShopsService, ShopsService>();
             services.AddScoped<IProductsService, ProductsService>();
+            services.AddScoped<ICategoriesService, CategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

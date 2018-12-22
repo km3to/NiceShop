@@ -1,7 +1,11 @@
-﻿@model NiceShop.ViewModels.Products.CreateProductViewModel
+﻿@using NiceShop.ViewModels.Categories
+@using NiceShop.ViewModels.Shops
+@model NiceShop.ViewModels.Products.CreateProductViewModel
 
 @{
     ViewData["Title"] = "Create";
+    var categories = this.ViewData["categories"] as IEnumerable<AllCategoriesViewModel>;
+    var shops = this.ViewData["shops"] as IEnumerable<AllShopsViewModel>;
 }
 
 <h1>Create</h1>
@@ -27,13 +31,21 @@
             <div class="row">
                 <div class="col form-group">
                     <label asp-for="CategoryId" class="control-label"></label>
-                    <input asp-for="CategoryId" class="form-control" />
-                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    <select asp-for="CategoryId" class="form-control">
+                        @foreach (var category in categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
                 </div>
                 <div class="col form-group">
                     <label asp-for="ShopId" class="control-label"></label>
-                    <input asp-for="ShopId" class="form-control" />
-                    <span asp-validation-for="ShopId" class="text-danger"></span>
+                    <select asp-for="ShopId" class="form-control">
+                        @foreach (var shop in shops)
+                        {
+                            <option value="@shop.Id">@shop.Name</option>
+                        }
+                    </select>
                 </div>
             </div>
             <div class="row">

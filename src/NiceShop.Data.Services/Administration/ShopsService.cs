@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.ViewModels.Categories;
 using NiceShop.ViewModels.Shops;
 
 namespace NiceShop.Data.Services.Administration
@@ -54,6 +55,38 @@ namespace NiceShop.Data.Services.Administration
                 .FirstOrDefault();
 
             return shop;
+        }
+
+        public IQueryable<AllShopsViewModel> GetAll()
+        {
+            var result = this.db.Shops
+                .Select(x => new AllShopsViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+
+            return result;
+        }
+
+        // TODO: Use model
+        public async Task CreateAsync(string name)
+        {
+            var shop = new Shop
+            {
+                Name = name
+            };
+
+            // TODO: Proper handling
+            try
+            {
+                await this.db.Shops.AddAsync(shop);
+                await this.db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
