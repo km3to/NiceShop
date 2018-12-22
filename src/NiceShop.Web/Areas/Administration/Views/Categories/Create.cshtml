@@ -1,0 +1,47 @@
+﻿@using NiceShop.ViewModels.Categories
+@model NiceShop.ViewModels.Categories.CreateCategoryViewModel
+
+@{
+    this.ViewData["Title"] = "Create";
+    var categories = this.ViewData["categories"] as IEnumerable<AllCategoriesViewModel>;
+}
+
+<h1>Create</h1>
+
+<h4>CreateCategoryViewModel</h4>
+<hr />
+
+<div class="row mb-5">
+    <div class="col-md-4">
+        <ul class="list-group list-group-flush">
+            @foreach (var category in categories)
+            {
+                <li class="list-group-item">@category.Name</li>
+            }
+        </ul>
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-dark" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
