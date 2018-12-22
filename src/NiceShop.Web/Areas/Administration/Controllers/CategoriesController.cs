@@ -19,6 +19,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var categories = this.categoriesService
                 .GetAll()
+                .Select(x => x.Name)
                 .ToList();
 
             this.ViewData["categories"] = categories;

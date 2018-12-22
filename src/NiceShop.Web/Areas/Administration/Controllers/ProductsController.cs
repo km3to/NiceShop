@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.ViewModels.Products;
 
@@ -33,10 +34,20 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var allCategories = this.categoriesService
                 .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.Name
+                })
                 .ToList();
 
             var allShops = this.shopsService
                 .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.Name
+                })
                 .ToList();
 
             // TODO: Create a complex model or use constants

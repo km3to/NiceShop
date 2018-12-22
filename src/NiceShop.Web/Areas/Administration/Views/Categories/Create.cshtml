@@ -1,9 +1,8 @@
-﻿@using NiceShop.ViewModels.Categories
-@model NiceShop.ViewModels.Categories.CreateCategoryViewModel
+﻿@model NiceShop.ViewModels.Categories.CreateCategoryViewModel
 
 @{
     this.ViewData["Title"] = "Create";
-    var categories = this.ViewData["categories"] as IEnumerable<AllCategoriesViewModel>;
+    var categories = this.ViewData["categories"] as IEnumerable<string>;
 }
 
 <h1>Create</h1>
@@ -16,7 +15,7 @@
         <ul class="list-group list-group-flush">
             @foreach (var category in categories)
             {
-                <li class="list-group-item">@category.Name</li>
+                <li class="list-group-item">@category</li>
             }
         </ul>
     </div>
@@ -32,7 +31,7 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-dark" />
+                    <input type="submit" value="Create" class="btn btn-outline-dark" />
                 </div>
             </form>
         </div>

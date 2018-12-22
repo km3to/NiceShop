@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.ViewModels;
 using NiceShop.ViewModels.Categories;
 using NiceShop.ViewModels.Shops;
 
@@ -57,10 +58,10 @@ namespace NiceShop.Data.Services.Administration
             return shop;
         }
 
-        public IQueryable<AllShopsViewModel> GetAll()
+        public IQueryable<IdAndNameViewModel> GetAll()
         {
             var result = this.db.Shops
-                .Select(x => new AllShopsViewModel
+                .Select(x => new IdAndNameViewModel
                 {
                     Id = x.Id,
                     Name = x.Name

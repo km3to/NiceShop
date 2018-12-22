@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using NiceShop.ViewModels;
 using NiceShop.ViewModels.Shops;
 
 namespace NiceShop.Data.Services.Administration.Contracts
@@ -10,7 +11,7 @@ namespace NiceShop.Data.Services.Administration.Contracts
 
         Task<string> CreateAsync(CreateShopViewModel viewModel);
 
-        IQueryable<AllShopsViewModel> GetAll();
+        IQueryable<IdAndNameViewModel> GetAll();
 
         Task CreateAsync(string name);
     }
