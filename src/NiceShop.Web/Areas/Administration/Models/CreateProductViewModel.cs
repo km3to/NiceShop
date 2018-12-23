@@ -3,7 +3,7 @@ using NiceShop.Web.CustomAttributes.ValidationAttributes;
 
 namespace NiceShop.Web.Areas.Administration.Models
 {
-    // TODO: Attributes to all properties
+    // TODO: Validation for CategoryId and ShopId
     public class CreateProductViewModel
     {
         [Display(Name = "Код")]
@@ -26,12 +26,20 @@ namespace NiceShop.Web.Areas.Administration.Models
         public string ShopId { get; set; }
 
         [Display(Name = "Адрес на изображението")]
+        [Url]
         public string ImageUrl { get; set; }
 
         [Display(Name = "Доставна цена")]
+        [Required(ErrorMessage = "{0}то е задължително!")]
+        [DataType(DataType.Currency)]
+        [Range(0.01, double.MaxValue)]
         public decimal BoughtFor { get; set; }
 
         [Display(Name = "Продажна цена")]
+        [Required(ErrorMessage = "{0}то е задължително!")]
+        [DataType(DataType.Currency)]
+        [Range(0.01, double.MaxValue)]
+        [GreaterThan("BoughtFor", ErrorMessage = "Продажната цена трябва да бъде по голяма от доставната!")]
         public decimal Price { get; set; }
     }
 }
