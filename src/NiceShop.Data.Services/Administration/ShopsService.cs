@@ -17,18 +17,10 @@ namespace NiceShop.Data.Services.Administration
 
         public async Task<string> CreateAsync(Shop model)
         {
-            // TODO: Use automapper
-            var shop = new Shop
-            {
-                Name = model.Name,
-                Address = model.Address,
-                Description = model.Description,
-            };
-
             // TODO: Proper handling
             try
             {
-                await this.db.Shops.AddAsync(shop);
+                await this.db.Shops.AddAsync(model);
                 await this.db.SaveChangesAsync();
             }
             catch (Exception e)
@@ -36,12 +28,11 @@ namespace NiceShop.Data.Services.Administration
                 Console.WriteLine(e);
             }
 
-            return shop.Id;
+            return model.Id;
         }
 
         public Shop GetById(string id)
         {
-            // TODO: Use automapper
             var shop = this.db.Shops
                 .FirstOrDefault(x => x.Id == id);
 

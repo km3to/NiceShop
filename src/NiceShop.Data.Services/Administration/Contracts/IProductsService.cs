@@ -10,5 +10,7 @@ namespace NiceShop.Data.Services.Administration.Contracts
         Product GetById(string id);
 
         bool IsNameValid(string name);
+
+        bool IsCodeValid(string code);
     }
 }

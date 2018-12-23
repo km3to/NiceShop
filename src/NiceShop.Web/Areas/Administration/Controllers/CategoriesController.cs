@@ -32,7 +32,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                // TODO: Do something
+                return this.View(viewModel);
             }
 
             await this.categoriesService.CreateAsync(viewModel.Name);

@@ -19,6 +19,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var shop = this.shopsService.GetById(id);
 
+            // TODO: Use AutoMapper
             var viewModel = new CreateShopViewModel
             {
                 Name = shop.Name,
@@ -42,6 +43,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 return this.View(viewModel);
             }
 
+            // TODO: Use AutoMapper
             var shop = new Shop
             {
                 Name = viewModel.Name,

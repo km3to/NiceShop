@@ -17,13 +17,11 @@ namespace NiceShop.Data.Services.Administration
 
         public IQueryable<Category> GetAll()
         {
-            // TODO: Use automapper
             var result = this.db.Categories;
 
             return result;
         }
 
-        // TODO: May  be use model
         public async Task CreateAsync(string name)
         {
             var category = new Category

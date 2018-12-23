@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -29,6 +30,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             var product = this.productsService
                 .GetById(id);
 
+            // TODO: Use AutoMapper
             var viewModel = new CreateProductViewModel
             {
                 Name = product.Name,
@@ -46,27 +48,9 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Create()
         {
-            var allCategories = this.categoriesService
-                .GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Value = x.Id,
-                    Text = x.Name
-                })
-                .ToList();
-
-            var allShops = this.shopsService
-                .GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Value = x.Id,
-                    Text = x.Name
-                })
-                .ToList();
-
             // TODO: Create a complex model or use constants
-            this.ViewData["categories"] = allCategories;
-            this.ViewData["shops"] = allShops;
+            this.ViewData["categories"] = this.GetAllCategories();
+            this.ViewData["shops"] = this.GetAllShops();
 
             return this.View();
         }
@@ -76,31 +60,14 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                var allCategories = this.categoriesService
-                    .GetAll()
-                    .Select(x => new SelectListItem
-                    {
-                        Value = x.Id,
-                        Text = x.Name
-                    })
-                    .ToList();
-
-                var allShops = this.shopsService
-                    .GetAll()
-                    .Select(x => new SelectListItem
-                    {
-                        Value = x.Id,
-                        Text = x.Name
-                    })
-                    .ToList();
-
                 // TODO: Create a complex model or use constants
-                this.ViewData["categories"] = allCategories;
-                this.ViewData["shops"] = allShops;
+                this.ViewData["categories"] = this.GetAllCategories();
+                this.ViewData["shops"] = this.GetAllShops();
 
                 return this.View(viewModel);
             }
 
+            // TODO: Use AutoMapper
             var product = new Product
             {
                 Name = viewModel.Name,
@@ -116,6 +83,34 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             var id = await this.productsService.CreateAsync(product);
 
             return this.RedirectToAction("Details", new { id });
+        }
+
+        private IEnumerable<SelectListItem> GetAllCategories()
+        {
+            var result = this.categoriesService
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.Name
+                })
+                .ToList();
+
+            return result;
+        }
+
+        private IEnumerable<SelectListItem> GetAllShops()
+        {
+            var result = this.shopsService
+                .GetAll()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id,
+                    Text = x.Name
+                })
+                .ToList();
+
+            return result;
         }
     }
 }

@@ -33,7 +33,6 @@ namespace NiceShop.Data.Services.Administration
 
         public Product GetById(string id)
         {
-            // TODO: Use automapper
             var product = this.db.Products
                 .FirstOrDefault(x => x.Id == id);
 
@@ -43,6 +42,17 @@ namespace NiceShop.Data.Services.Administration
         public bool IsNameValid(string name)
         {
             var result = !this.db.Products.Any(x => x.Name == name);
+            return result;
+        }
+
+        public bool IsCodeValid(string code)
+        {
+            if (code == null)
+            {
+                return true;
+            }
+
+            var result = !this.db.Products.Any(x => x.Code == code);
             return result;
         }
     }
