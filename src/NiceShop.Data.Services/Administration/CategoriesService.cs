@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.ViewModels;
-using NiceShop.ViewModels.Categories;
 
 namespace NiceShop.Data.Services.Administration
 {
@@ -17,15 +15,10 @@ namespace NiceShop.Data.Services.Administration
             this.db = db;
         }
 
-        public IQueryable<IdAndNameViewModel> GetAll()
+        public IQueryable<Category> GetAll()
         {
             // TODO: Use automapper
-            var result = this.db.Categories
-                .Select(x => new IdAndNameViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
+            var result = this.db.Categories;
 
             return result;
         }

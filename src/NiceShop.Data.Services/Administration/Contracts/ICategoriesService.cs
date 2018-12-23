@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using NiceShop.ViewModels;
+using NiceShop.Data.Models;
 
 namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface ICategoriesService
     {
-        IQueryable<IdAndNameViewModel> GetAll();
+        IQueryable<Category> GetAll();
 
         Task CreateAsync(string name);
     }

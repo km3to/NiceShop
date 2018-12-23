@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.ViewModels.Categories;
+using NiceShop.Web.Areas.Administration.Models;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {

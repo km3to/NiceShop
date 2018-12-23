@@ -1,12 +1,14 @@
 ﻿using System.Threading.Tasks;
-using NiceShop.ViewModels.Products;
+using NiceShop.Data.Models;
 
 namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IProductsService
     {
-        Task<string> CreateAsync(CreateProductViewModel viewModel);
+        Task<string> CreateAsync(Product model);
 
-        CreateProductViewModel GetById(string id);
+        Product GetById(string id);
+
+        bool IsNameValid(string name);
     }
 }

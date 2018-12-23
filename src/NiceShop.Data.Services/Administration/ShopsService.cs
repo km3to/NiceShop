@@ -3,9 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.ViewModels;
-using NiceShop.ViewModels.Categories;
-using NiceShop.ViewModels.Shops;
 
 namespace NiceShop.Data.Services.Administration
 {
@@ -18,14 +15,14 @@ namespace NiceShop.Data.Services.Administration
             this.db = db;
         }
 
-        public async Task<string> CreateAsync(CreateShopViewModel viewModel)
+        public async Task<string> CreateAsync(Shop model)
         {
             // TODO: Use automapper
             var shop = new Shop
             {
-                Name = viewModel.Name,
-                Address = viewModel.Address,
-                Description = viewModel.Description,
+                Name = model.Name,
+                Address = model.Address,
+                Description = model.Description,
             };
 
             // TODO: Proper handling
@@ -42,30 +39,18 @@ namespace NiceShop.Data.Services.Administration
             return shop.Id;
         }
 
-        public CreateShopViewModel GetById(string id)
+        public Shop GetById(string id)
         {
             // TODO: Use automapper
             var shop = this.db.Shops
-                .Where(x => x.Id == id)
-                .Select(x => new CreateShopViewModel
-                {
-                    Name = x.Name,
-                    Address = x.Address,
-                    Description = x.Description,
-                })
-                .FirstOrDefault();
+                .FirstOrDefault(x => x.Id == id);
 
             return shop;
         }
 
-        public IQueryable<IdAndNameViewModel> GetAll()
+        public IQueryable<Shop> GetAll()
         {
-            var result = this.db.Shops
-                .Select(x => new IdAndNameViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name
-                });
+            var result = this.db.Shops;
 
             return result;
         }

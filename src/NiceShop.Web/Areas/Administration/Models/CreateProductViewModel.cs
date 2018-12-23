@@ -1,10 +1,13 @@
-﻿namespace NiceShop.ViewModels.Products
+﻿using NiceShop.Web.CustomAttributes.ValidationAttributes;
+
+namespace NiceShop.Web.Areas.Administration.Models
 {
     // TODO: Attributes to all properties
     public class CreateProductViewModel
     {
         public string Code { get; set; }
 
+        [ValidProductName]
         public string Name { get; set; }
 
         public string Description { get; set; }

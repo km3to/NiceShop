@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.ViewModels.Products;
+using NiceShop.Web.Areas.Administration.Models;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
@@ -25,7 +26,20 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Details(string id)
         {
-            var viewModel = this.productsService.GetById(id);
+            var product = this.productsService
+                .GetById(id);
+
+            var viewModel = new CreateProductViewModel
+            {
+                Name = product.Name,
+                Code = product.Code,
+                Description = product.Description,
+                BoughtFor = product.BoughtFor,
+                Price = product.Price,
+                ImageUrl = product.ImageUrl,
+                ShopId = product.ShopId,
+                CategoryId = product.CategoryId,
+            };
 
             return this.View(viewModel);
         }
@@ -62,10 +76,44 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                // TODO: Do something
+                var allCategories = this.categoriesService
+                    .GetAll()
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.Id,
+                        Text = x.Name
+                    })
+                    .ToList();
+
+                var allShops = this.shopsService
+                    .GetAll()
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.Id,
+                        Text = x.Name
+                    })
+                    .ToList();
+
+                // TODO: Create a complex model or use constants
+                this.ViewData["categories"] = allCategories;
+                this.ViewData["shops"] = allShops;
+
+                return this.View(viewModel);
             }
 
-            var id = await this.productsService.CreateAsync(viewModel);
+            var product = new Product
+            {
+                Name = viewModel.Name,
+                Code = viewModel.Code,
+                Description = viewModel.Description,
+                BoughtFor = viewModel.BoughtFor,
+                Price = viewModel.Price,
+                ImageUrl = viewModel.ImageUrl,
+                CategoryId = viewModel.CategoryId,
+                ShopId = viewModel.ShopId,
+            };
+
+            var id = await this.productsService.CreateAsync(product);
 
             return this.RedirectToAction("Details", new { id });
         }

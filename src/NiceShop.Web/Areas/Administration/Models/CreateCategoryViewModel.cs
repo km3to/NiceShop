@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NiceShop.ViewModels.Categories
+namespace NiceShop.Web.Areas.Administration.Models
 {
     public class CreateCategoryViewModel
     {

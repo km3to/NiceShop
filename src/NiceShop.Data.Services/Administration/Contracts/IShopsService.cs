@@ -1,17 +1,16 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using NiceShop.ViewModels;
-using NiceShop.ViewModels.Shops;
+using NiceShop.Data.Models;
 
 namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IShopsService
     {
-        CreateShopViewModel GetById(string id);
+        Shop GetById(string id);
 
-        Task<string> CreateAsync(CreateShopViewModel viewModel);
+        Task<string> CreateAsync(Shop model);
 
-        IQueryable<IdAndNameViewModel> GetAll();
+        IQueryable<Shop> GetAll();
 
         Task CreateAsync(string name);
     }

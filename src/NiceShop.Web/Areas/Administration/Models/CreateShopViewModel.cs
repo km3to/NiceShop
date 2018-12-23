@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NiceShop.ViewModels.Shops
+namespace NiceShop.Web.Areas.Administration.Models
 {
     public class CreateShopViewModel
     {

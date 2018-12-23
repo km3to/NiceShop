@@ -1,7 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.ViewModels.Shops;
+using NiceShop.Web.Areas.Administration.Models;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
@@ -16,7 +17,14 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Details(string id)
         {
-            var viewModel = this.shopsService.GetById(id);
+            var shop = this.shopsService.GetById(id);
+
+            var viewModel = new CreateShopViewModel
+            {
+                Name = shop.Name,
+                Description = shop.Description,
+                Address = shop.Address,
+            };
 
             return this.View(viewModel);
         }
@@ -31,10 +39,17 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                // TODO: Do something
+                return this.View(viewModel);
             }
 
-            var id = await this.shopsService.CreateAsync(viewModel);
+            var shop = new Shop
+            {
+                Name = viewModel.Name,
+                Description = viewModel.Description,
+                Address = viewModel.Address,
+            };
+
+            var id = await this.shopsService.CreateAsync(shop);
 
             return this.RedirectToAction("Details", new { id });
         }

@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Data.Models", "Nic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Data.Services", "NiceShop.Data.Services\NiceShop.Data.Services.csproj", "{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.ViewModels", "NiceShop.ViewModels\NiceShop.ViewModels.csproj", "{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D862D19-8215-4A2F-A4A7-4BFA6F0336D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98F7CB91-FBA0-46DA-84E2-240F5B02C32F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
