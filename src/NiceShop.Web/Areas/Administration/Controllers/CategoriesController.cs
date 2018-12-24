@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NiceShop.AutoMapping;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.Web.Areas.Administration.Models;
+using NiceShop.Web.Areas.Administration.Models.BindingModels;
+using NiceShop.Web.Areas.Administration.Models.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
@@ -19,7 +21,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var categories = this.categoriesService
                 .GetAll()
-                .Select(x => x.Name)
+                .To<DetailsCategoryViewModel>()
                 .ToList();
 
             this.ViewData["categories"] = categories;
@@ -28,14 +30,14 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCategoryViewModel viewModel)
+        public async Task<IActionResult> Create(CreateCategoryBindingModel bindingModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(viewModel);
+                return this.View(bindingModel);
             }
 
-            await this.categoriesService.CreateAsync(viewModel.Name);
+            await this.categoriesService.CreateAsync(bindingModel.Name);
 
             return this.RedirectToAction("Create");
         }

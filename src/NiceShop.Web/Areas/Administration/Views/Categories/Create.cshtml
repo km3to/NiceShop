@@ -1,8 +1,9 @@
-﻿@model NiceShop.Web.Areas.Administration.Models.CreateCategoryViewModel
+﻿@using NiceShop.Web.Areas.Administration.Models.ViewModels
+@model NiceShop.Web.Areas.Administration.Models.BindingModels.CreateCategoryBindingModel
 
 @{
     this.ViewData["Title"] = "Create";
-    var categories = this.ViewData["categories"] as IEnumerable<string>;
+    var categories = this.ViewData["categories"] as IEnumerable<DetailsCategoryViewModel>;
 }
 
 <h1>Create</h1>
@@ -15,7 +16,7 @@
         <ul class="list-group list-group-flush">
             @foreach (var category in categories)
             {
-                <li class="list-group-item">@category</li>
+                <li class="list-group-item">@category.Name</li>
             }
         </ul>
     </div>

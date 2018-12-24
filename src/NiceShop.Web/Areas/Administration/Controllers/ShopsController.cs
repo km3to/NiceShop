@@ -1,8 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.Web.Areas.Administration.Models;
+using NiceShop.Web.Areas.Administration.Models.BindingModels;
+using NiceShop.Web.Areas.Administration.Models.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
@@ -17,15 +20,10 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Details(string id)
         {
-            var shop = this.shopsService.GetById(id);
-
-            // TODO: Use AutoMapper
-            var viewModel = new CreateShopViewModel
-            {
-                Name = shop.Name,
-                Description = shop.Description,
-                Address = shop.Address,
-            };
+            var viewModel = this.shopsService
+                .GetById(id)
+                .To<DetailsShopViewModel>()
+                .FirstOrDefault();
 
             return this.View(viewModel);
         }
@@ -36,19 +34,19 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateShopViewModel viewModel)
+        public async Task<IActionResult> Create(CreateShopBindingModel bindingModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(viewModel);
+                return this.View(bindingModel);
             }
 
             // TODO: Use AutoMapper
             var shop = new Shop
             {
-                Name = viewModel.Name,
-                Description = viewModel.Description,
-                Address = viewModel.Address,
+                Name = bindingModel.Name,
+                Description = bindingModel.Description,
+                Address = bindingModel.Address,
             };
 
             var id = await this.shopsService.CreateAsync(shop);

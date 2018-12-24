@@ -6,7 +6,7 @@ namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IShopsService
     {
-        Shop GetById(string id);
+        IQueryable<Shop> GetById(string id);
 
         Task<string> CreateAsync(Shop model);
 

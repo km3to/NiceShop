@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AutoMapper;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Web.CustomAttributes.ValidationAttributes;
 
-namespace NiceShop.Web.Areas.Administration.Models
+namespace NiceShop.Web.Areas.Administration.Models.BindingModels
 {
     // TODO: Validation for CategoryId and ShopId
-    public class CreateProductViewModel : IMapFrom<Product> //, IHaveCustomMappings
+    public class CreateProductBindingModel : IMapTo<Product> //, IHaveCustomMappings
     {
         [Display(Name = "Код")]
         [UniqueProductCode(ErrorMessage = "Продукт с такъв код вече съществува!")]

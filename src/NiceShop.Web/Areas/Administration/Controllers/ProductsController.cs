@@ -7,6 +7,8 @@ using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Areas.Administration.Models;
+using NiceShop.Web.Areas.Administration.Models.BindingModels;
+using NiceShop.Web.Areas.Administration.Models.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
@@ -33,19 +35,6 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 .To<DetailsProductViewModel>()
                 .FirstOrDefault();
 
-            // TODO: Use AutoMapper
-            //var viewModel = new CreateProductViewModel
-            //{
-            //    Name = product.Name,
-            //    Code = product.Code,
-            //    Description = product.Description,
-            //    BoughtFor = product.BoughtFor,
-            //    Price = product.Price,
-            //    ImageUrl = product.ImageUrl,
-            //    ShopId = product.ShopId,
-            //    CategoryId = product.CategoryId,
-            //};
-
             return this.View(viewModel);
         }
 
@@ -59,7 +48,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductViewModel viewModel)
+        public async Task<IActionResult> Create(CreateProductBindingModel bindingModel)
         {
             if (!this.ModelState.IsValid)
             {
@@ -67,20 +56,20 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 this.ViewData["categories"] = this.GetAllCategories();
                 this.ViewData["shops"] = this.GetAllShops();
 
-                return this.View(viewModel);
+                return this.View(bindingModel);
             }
 
             // TODO: Use AutoMapper
             var product = new Product
             {
-                Name = viewModel.Name,
-                Code = viewModel.Code,
-                Description = viewModel.Description,
-                BoughtFor = viewModel.BoughtFor,
-                Price = viewModel.Price,
-                ImageUrl = viewModel.ImageUrl,
-                CategoryId = viewModel.CategoryId,
-                ShopId = viewModel.ShopId,
+                Name = bindingModel.Name,
+                Code = bindingModel.Code,
+                Description = bindingModel.Description,
+                BoughtFor = bindingModel.BoughtFor,
+                Price = bindingModel.Price,
+                ImageUrl = bindingModel.ImageUrl,
+                CategoryId = bindingModel.CategoryId,
+                ShopId = bindingModel.ShopId,
             };
 
             var id = await this.productsService.CreateAsync(product);
@@ -88,6 +77,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             return this.RedirectToAction("Details", new { id });
         }
 
+        // TODO: Need to use standard autoMapper to map here...
         private IEnumerable<SelectListItem> GetAllCategories()
         {
             var result = this.categoriesService
@@ -102,6 +92,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             return result;
         }
 
+        // TODO: Need to use standard autoMapper to map here...
         private IEnumerable<SelectListItem> GetAllShops()
         {
             var result = this.shopsService

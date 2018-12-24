@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +10,7 @@ using NiceShop.Data;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.Web.Areas.Administration.Models;
+using NiceShop.Web.Areas.Administration.Models.ViewModels;
 
 namespace NiceShop.Web
 {
@@ -27,7 +26,7 @@ namespace NiceShop.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AutoMapperConfig.RegisterMappings(typeof(IdAndNameViewModel).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(DetailsShopViewModel).Assembly);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
