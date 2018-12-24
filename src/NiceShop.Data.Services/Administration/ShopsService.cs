@@ -33,10 +33,10 @@ namespace NiceShop.Data.Services.Administration
 
         public IQueryable<Shop> GetById(string id)
         {
-            var shop = this.db.Shops
+            var result = this.db.Shops
                 .Where(x => x.Id == id);
 
-            return shop;
+            return result;
         }
 
         public IQueryable<Shop> GetAll()
@@ -44,26 +44,6 @@ namespace NiceShop.Data.Services.Administration
             var result = this.db.Shops;
 
             return result;
-        }
-
-        // TODO: Use model
-        public async Task CreateAsync(string name)
-        {
-            var shop = new Shop
-            {
-                Name = name
-            };
-
-            // TODO: Proper handling
-            try
-            {
-                await this.db.Shops.AddAsync(shop);
-                await this.db.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
         }
     }
 }

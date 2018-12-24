@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.Web.Areas.Administration.Models;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
 
@@ -17,22 +17,25 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         private readonly IProductsService productsService;
         private readonly ICategoriesService categoriesService;
         private readonly IShopsService shopsService;
+        private readonly IMapper mapper;
 
         public ProductsController(
             IProductsService productsService, 
             ICategoriesService categoriesService, 
-            IShopsService shopsService)
+            IShopsService shopsService, 
+            IMapper mapper)
         {
             this.productsService = productsService;
             this.categoriesService = categoriesService;
             this.shopsService = shopsService;
+            this.mapper = mapper;
         }
 
         public IActionResult Details(string id)
         {
             var viewModel = this.productsService
                 .GetById(id)
-                .To<DetailsProductViewModel>()
+                .ProjectTo<DetailsProductViewModel>()
                 .FirstOrDefault();
 
             return this.View(viewModel);
@@ -59,50 +62,24 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 return this.View(bindingModel);
             }
 
-            // TODO: Use AutoMapper
-            var product = new Product
-            {
-                Name = bindingModel.Name,
-                Code = bindingModel.Code,
-                Description = bindingModel.Description,
-                BoughtFor = bindingModel.BoughtFor,
-                Price = bindingModel.Price,
-                ImageUrl = bindingModel.ImageUrl,
-                CategoryId = bindingModel.CategoryId,
-                ShopId = bindingModel.ShopId,
-            };
-
+            var product = this.mapper.Map<Product>(bindingModel);
             var id = await this.productsService.CreateAsync(product);
 
             return this.RedirectToAction("Details", new { id });
         }
-
-        // TODO: Need to use standard autoMapper to map here...
+        
         private IEnumerable<SelectListItem> GetAllCategories()
         {
-            var result = this.categoriesService
-                .GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Value = x.Id,
-                    Text = x.Name
-                })
-                .ToList();
+            var categories = this.categoriesService.GetAll();
+            var result = this.mapper.Map<IQueryable<Category>, IEnumerable<SelectListItem>>(categories);
 
             return result;
         }
 
-        // TODO: Need to use standard autoMapper to map here...
         private IEnumerable<SelectListItem> GetAllShops()
         {
-            var result = this.shopsService
-                .GetAll()
-                .Select(x => new SelectListItem
-                {
-                    Value = x.Id,
-                    Text = x.Name
-                })
-                .ToList();
+            var shops = this.shopsService.GetAll();
+            var result = this.mapper.Map<IQueryable<Shop>, IEnumerable<SelectListItem>>(shops);
 
             return result;
         }

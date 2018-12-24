@@ -11,7 +11,5 @@ namespace NiceShop.Data.Services.Administration.Contracts
         Task<string> CreateAsync(Shop model);
 
         IQueryable<Shop> GetAll();
-
-        Task CreateAsync(string name);
     }
 }

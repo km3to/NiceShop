@@ -1,7 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
-using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
@@ -12,17 +13,19 @@ namespace NiceShop.Web.Areas.Administration.Controllers
     public class ShopsController : BaseAdministrationController
     {
         private readonly IShopsService shopsService;
+        private readonly IMapper mapper;
 
-        public ShopsController(IShopsService shopsService)
+        public ShopsController(IShopsService shopsService, IMapper mapper)
         {
             this.shopsService = shopsService;
+            this.mapper = mapper;
         }
 
         public IActionResult Details(string id)
         {
             var viewModel = this.shopsService
                 .GetById(id)
-                .To<DetailsShopViewModel>()
+                .ProjectTo<DetailsShopViewModel>()
                 .FirstOrDefault();
 
             return this.View(viewModel);
@@ -41,14 +44,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 return this.View(bindingModel);
             }
 
-            // TODO: Use AutoMapper
-            var shop = new Shop
-            {
-                Name = bindingModel.Name,
-                Description = bindingModel.Description,
-                Address = bindingModel.Address,
-            };
-
+            var shop = this.mapper.Map<Shop>(bindingModel);
             var id = await this.shopsService.CreateAsync(shop);
 
             return this.RedirectToAction("Details", new { id });

@@ -33,10 +33,10 @@ namespace NiceShop.Data.Services.Administration
 
         public IQueryable<Product> GetById(string id)
         {
-            var product = this.db.Products
+            var result = this.db.Products
                 .Where(x => x.Id == id);
 
-            return product;
+            return result;
         }
 
         public bool IsNameValid(string name)

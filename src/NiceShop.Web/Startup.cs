@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +12,7 @@ using NiceShop.Data;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
 
 namespace NiceShop.Web
@@ -53,6 +56,19 @@ namespace NiceShop.Web
                 .AddEntityFrameworkStores<NiceShopDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            AutoMapperConfig.RegisterMappings(typeof(DetailsShopViewModel).Assembly);
+            services.AddAutoMapper(config =>
+            {
+                config.CreateMap<CreateShopBindingModel, Shop>();
+                config.CreateMap<CreateProductBindingModel, Product>();
+                config.CreateMap<Category, SelectListItem>()
+                    .ForMember(x => x.Value, x => x.MapFrom(y => y.Id))
+                    .ForMember(x => x.Text, x => x.MapFrom(y => y.Name));
+                config.CreateMap<Shop, SelectListItem>()
+                    .ForMember(x => x.Value, x => x.MapFrom(y => y.Id))
+                    .ForMember(x => x.Text, x => x.MapFrom(y => y.Name));
+            });
 
             services.AddScoped<IShopsService, ShopsService>();
             services.AddScoped<IProductsService, ProductsService>();
