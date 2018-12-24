@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using NiceShop.Data.Models;
 
 namespace NiceShop.Data.Services.Administration.Contracts
@@ -7,7 +8,7 @@ namespace NiceShop.Data.Services.Administration.Contracts
     {
         Task<string> CreateAsync(Product model);
 
-        Product GetById(string id);
+        IQueryable<Product> GetById(string id);
 
         bool IsNameValid(string name);
 

@@ -31,10 +31,10 @@ namespace NiceShop.Data.Services.Administration
             return product.Id;
         }
 
-        public Product GetById(string id)
+        public IQueryable<Product> GetById(string id)
         {
             var product = this.db.Products
-                .FirstOrDefault(x => x.Id == id);
+                .Where(x => x.Id == id);
 
             return product;
         }

@@ -1,4 +1,4 @@
-﻿@model NiceShop.Web.Areas.Administration.Models.CreateProductViewModel
+﻿@model NiceShop.Web.Areas.Administration.Models.DetailsProductViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -29,16 +29,16 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryId)
+            @Html.DisplayNameFor(model => model.CategoryName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryId)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShopId)
+            @Html.DisplayNameFor(model => model.ShopName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShopId)
+            @Html.DisplayFor(model => model.ShopName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ImageUrl)

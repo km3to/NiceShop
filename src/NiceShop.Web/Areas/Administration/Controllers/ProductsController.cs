@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Areas.Administration.Models;
@@ -27,21 +28,23 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Details(string id)
         {
-            var product = this.productsService
-                .GetById(id);
+            var viewModel = this.productsService
+                .GetById(id)
+                .To<DetailsProductViewModel>()
+                .FirstOrDefault();
 
             // TODO: Use AutoMapper
-            var viewModel = new CreateProductViewModel
-            {
-                Name = product.Name,
-                Code = product.Code,
-                Description = product.Description,
-                BoughtFor = product.BoughtFor,
-                Price = product.Price,
-                ImageUrl = product.ImageUrl,
-                ShopId = product.ShopId,
-                CategoryId = product.CategoryId,
-            };
+            //var viewModel = new CreateProductViewModel
+            //{
+            //    Name = product.Name,
+            //    Code = product.Code,
+            //    Description = product.Description,
+            //    BoughtFor = product.BoughtFor,
+            //    Price = product.Price,
+            //    ImageUrl = product.ImageUrl,
+            //    ShopId = product.ShopId,
+            //    CategoryId = product.CategoryId,
+            //};
 
             return this.View(viewModel);
         }

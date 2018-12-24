@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NiceShop.AutoMapping;
 using NiceShop.Data;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Web.Areas.Administration.Models;
 
 namespace NiceShop.Web
 {
@@ -25,6 +27,8 @@ namespace NiceShop.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AutoMapperConfig.RegisterMappings(typeof(IdAndNameViewModel).Assembly);
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

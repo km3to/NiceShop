@@ -1,10 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using AutoMapper;
+using NiceShop.AutoMapping;
+using NiceShop.Data.Models;
 using NiceShop.Web.CustomAttributes.ValidationAttributes;
 
 namespace NiceShop.Web.Areas.Administration.Models
 {
     // TODO: Validation for CategoryId and ShopId
-    public class CreateProductViewModel
+    public class CreateProductViewModel : IMapFrom<Product> //, IHaveCustomMappings
     {
         [Display(Name = "Код")]
         [UniqueProductCode(ErrorMessage = "Продукт с такъв код вече съществува!")]
@@ -41,5 +44,11 @@ namespace NiceShop.Web.Areas.Administration.Models
         [Range(0.01, double.MaxValue)]
         [GreaterThan("BoughtFor", ErrorMessage = "Продажната цена трябва да бъде по голяма от доставната!")]
         public decimal Price { get; set; }
+
+        //public void CreateMappings(IMapperConfigurationExpression configuration)
+        //{
+        //    configuration.CreateMap<Product, CreateProductViewModel>()
+        //        .ForMember(x => x.CategoryId, x => x.MapFrom(j => j.Category.Id));
+        //}
     }
 }
