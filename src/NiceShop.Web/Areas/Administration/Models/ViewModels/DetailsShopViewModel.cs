@@ -3,7 +3,7 @@ using NiceShop.Data.Models;
 
 namespace NiceShop.Web.Areas.Administration.Models.ViewModels
 {
-    public class DetailsShopViewModel
+    public class DetailsShopViewModel : IMapFrom<Shop>
     {
         public string Name { get; set; }
 

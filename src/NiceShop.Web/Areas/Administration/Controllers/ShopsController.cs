@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
+using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
@@ -25,7 +26,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var viewModel = this.shopsService
                 .GetById(id)
-                .ProjectTo<DetailsShopViewModel>()
+                .To<DetailsShopViewModel>()
                 .FirstOrDefault();
 
             return this.View(viewModel);

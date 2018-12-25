@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Mvc;
+using NiceShop.AutoMapping;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
@@ -21,7 +21,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var categories = this.categoriesService
                 .GetAll()
-                .ProjectTo<DetailsCategoryViewModel>()
+                .To<DetailsCategoryViewModel>()
                 .ToList();
 
             this.ViewData["categories"] = categories;
