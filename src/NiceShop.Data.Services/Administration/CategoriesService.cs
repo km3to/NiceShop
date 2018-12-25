@@ -40,5 +40,13 @@ namespace NiceShop.Data.Services.Administration
                 Console.WriteLine(e);
             }
         }
+
+        public IQueryable<Category> GetById(string id)
+        {
+            var result = this.db.Categories
+                .Where(x => x.Id == id);
+
+            return result;
+        }
     }
 }

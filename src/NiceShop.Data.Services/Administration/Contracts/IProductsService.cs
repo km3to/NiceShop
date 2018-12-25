@@ -6,9 +6,14 @@ namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IProductsService
     {
-        Task<string> CreateAsync(Product model);
-
         IQueryable<Product> GetById(string id);
+
+        Task<string> CreateAsync(Product model);
+        IQueryable<Product> GetAll();
+
+        IQueryable<Product> GetAllForShop(string shopId);
+
+        IQueryable<Product> GetAllForCategory(string categoryId);
 
         bool IsNameValid(string name);
 

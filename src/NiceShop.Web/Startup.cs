@@ -14,6 +14,8 @@ using NiceShop.Data.Services.Administration;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
+using NiceShop.Web.Services.Administration;
+using NiceShop.Web.Services.Administration.Contracts;
 
 namespace NiceShop.Web
 {
@@ -73,6 +75,7 @@ namespace NiceShop.Web
             services.AddScoped<IShopsService, ShopsService>();
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped<IHomeService, HomeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,32 +1,32 @@
 ﻿@model NiceShop.ViewModels.Administration.ViewModels.IndexViewModel
 
 @{
-    this.ViewData["Title"] = "Всички продукти";
+    this.ViewData["Title"] = $"Всички продукти за категория: \"{this.Model.ActiveCategory}\"";
     int index = 1;
 }
 
 <div class="row mb-3">
     <div class="col-5 dropdown">
-        Филтриране по магазин: 
+        Филтриране по магазин:
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Всички магазини
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             @foreach (var shop in this.Model.Shops)
             {
-                <a class="dropdown-item" href="#">@shop.Name</a>
+            <a class="dropdown-item" href="#">@shop.Name</a>
             }
         </div>
     </div>
     <div class="col-5 dropdown">
-        Филтриране по категория: 
+        Филтриране по категория:
         <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Всички категории:
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
             @foreach (var category in this.Model.Categories)
             {
-                <a class="dropdown-item" href="#">@category.Name</a>
+            <a class="dropdown-item" href="#">@category.Name</a>
             }
         </div>
     </div>
@@ -39,7 +39,7 @@
 
 
 
-<h1 class="text-center">@this.ViewData["Title"]</h1>
+<h2 class="text-center">@this.ViewData["Title"]</h2>
 
 <table class="table table-hover mt-5">
     <thead class="thead-dark">
@@ -55,19 +55,19 @@
     <tbody>
         @foreach (var product in this.Model.Products)
         {
-            <tr class="text-center">
-                <th class="col-1" scope="row">@(index++)</th>
-                <td class="col-3">@product.Name</td>
-                <td class="col-3">@product.CategoryName</td>
-                <td class="col-2">@product.ShopName</td>
-                <td class="col-1">69</td>
-                <td class="col-2">
-                    <div class="col">
-                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-dark">Edit</a>
-                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-dark">Delete</a>
-                    </div>
-                </td>
-            </tr>
+        <tr class="text-center">
+            <th class="col-1" scope="row">@(index++)</th>
+            <td class="col-3">@product.Name</td>
+            <td class="col-3">@product.CategoryName</td>
+            <td class="col-2">@product.ShopName</td>
+            <td class="col-1">69</td>
+            <td class="col-2">
+                <div class="col">
+                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-dark">Edit</a>
+                    <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-dark">Delete</a>
+                </div>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

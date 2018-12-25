@@ -9,5 +9,7 @@ namespace NiceShop.Data.Services.Administration.Contracts
         IQueryable<Category> GetAll();
 
         Task CreateAsync(string name);
+
+        IQueryable<Category> GetById(string id);
     }
 }

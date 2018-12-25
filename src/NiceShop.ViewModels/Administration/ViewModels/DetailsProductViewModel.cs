@@ -1,10 +1,12 @@
 ﻿using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 
-namespace NiceShop.Web.Areas.Administration.Models.ViewModels
+namespace NiceShop.ViewModels.Administration.ViewModels
 {
     public class DetailsProductViewModel : IMapFrom<Product>
     {
+        public string Id { get; set; }
+
         public string Code { get; set; }
 
         public string Name { get; set; }

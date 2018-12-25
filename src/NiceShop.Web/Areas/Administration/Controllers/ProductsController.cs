@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.ViewModels.Administration.ViewModels;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
 

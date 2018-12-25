@@ -20,6 +20,8 @@
     <ProjectReference Include="..\NiceShop.Data.Models\NiceShop.Data.Models.csproj" />
     <ProjectReference Include="..\NiceShop.Data.Services\NiceShop.Data.Services.csproj" />
     <ProjectReference Include="..\NiceShop.Data\NiceShop.Data.csproj" />
+    <ProjectReference Include="..\NiceShop.ViewModels\NiceShop.Web.Models.csproj" />
+    <ProjectReference Include="..\NiceShop.Web.Services\NiceShop.Web.Services.csproj" />
   </ItemGroup>
 
 </Project>
