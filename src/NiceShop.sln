@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Data.Services", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.AutoMapping", "NiceShop.AutoMapping\NiceShop.AutoMapping.csproj", "{3AFC3D46-7B12-4989-92F7-EF4AE5C99C14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Web.Models", "NiceShop.ViewModels\NiceShop.Web.Models.csproj", "{872D7806-F66D-4CD7-9D12-489AB02212C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NiceShop.Web.Models", "NiceShop.Web.Models\NiceShop.Web.Models.csproj", "{872D7806-F66D-4CD7-9D12-489AB02212C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceShop.Web.Services", "NiceShop.Web.Services\NiceShop.Web.Services.csproj", "{9166D356-B014-4A32-B70D-F7F3EB655770}"
 EndProject
