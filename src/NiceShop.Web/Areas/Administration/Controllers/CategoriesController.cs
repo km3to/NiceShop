@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NiceShop.AutoMapping;
-using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Data.Models;
+using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
 
@@ -10,17 +11,17 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 {
     public class CategoriesController : BaseAdministrationController
     {
-        private readonly ICategoriesService categoriesService;
+        private readonly IRepository<Category> categoriesRepository;
 
-        public CategoriesController(ICategoriesService categoriesService)
+        public CategoriesController(IRepository<Category> categoriesRepository)
         {
-            this.categoriesService = categoriesService;
+            this.categoriesRepository = categoriesRepository;
         }
 
         public IActionResult Create()
         {
-            var categories = this.categoriesService
-                .GetAll()
+            var categories = this.categoriesRepository
+                .ReadAll()
                 .To<DetailsCategoryViewModel>()
                 .ToList();
 
@@ -37,7 +38,9 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 return this.View(bindingModel);
             }
 
-            await this.categoriesService.CreateAsync(bindingModel.Name);
+            var category = new Category { Name = bindingModel.Name };
+
+            await this.categoriesRepository.CreateAsync(category);
 
             return this.RedirectToAction("Create");
         }

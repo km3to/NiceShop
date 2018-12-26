@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Data.Services.Administration;
 
 namespace NiceShop.Web.CustomAttributes.ValidationAttributes
 {
@@ -7,7 +7,7 @@ namespace NiceShop.Web.CustomAttributes.ValidationAttributes
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var service = (IProductsService)validationContext.GetService(typeof(IProductsService));
+            var service = (ProductsService)validationContext.GetService(typeof(ProductsService));
 
             if (service.IsNameValid((string)value))
             {

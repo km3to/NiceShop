@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
-using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
 using NiceShop.Web.Models.Administration.ViewModels;
@@ -15,27 +15,27 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 {
     public class ProductsController : BaseAdministrationController
     {
-        private readonly IProductsService productsService;
-        private readonly ICategoriesService categoriesService;
-        private readonly IShopsService shopsService;
+        private readonly IRepository<Product> productsRepository;
+        private readonly IRepository<Category> categoriesRepository;
+        private readonly IRepository<Shop> shopsRepository;
         private readonly IMapper mapper;
 
         public ProductsController(
-            IProductsService productsService, 
-            ICategoriesService categoriesService, 
-            IShopsService shopsService, 
+            IRepository<Product> productsRepository,
+            IRepository<Category> categoriesRepository,
+            IRepository<Shop> shopsRepository, 
             IMapper mapper)
         {
-            this.productsService = productsService;
-            this.categoriesService = categoriesService;
-            this.shopsService = shopsService;
+            this.productsRepository = productsRepository;
+            this.categoriesRepository = categoriesRepository;
+            this.shopsRepository = shopsRepository;
             this.mapper = mapper;
         }
 
         public IActionResult Details(string id)
         {
-            var viewModel = this.productsService
-                .GetById(id)
+            var viewModel = this.productsRepository
+                .ReadById(id)
                 .To<DetailsProductViewModel>()
                 .FirstOrDefault();
 
@@ -64,14 +64,14 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             }
 
             var product = this.mapper.Map<Product>(bindingModel);
-            var id = await this.productsService.CreateAsync(product);
+            var id = await this.productsRepository.CreateAsync(product);
 
             return this.RedirectToAction("Details", new { id });
         }
         
         private IEnumerable<SelectListItem> GetAllCategories()
         {
-            var categories = this.categoriesService.GetAll();
+            var categories = this.categoriesRepository.ReadAll();
             var result = this.mapper.Map<IQueryable<Category>, IEnumerable<SelectListItem>>(categories);
 
             return result;
@@ -79,7 +79,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         private IEnumerable<SelectListItem> GetAllShops()
         {
-            var shops = this.shopsService.GetAll();
+            var shops = this.shopsRepository.ReadAll();
             var result = this.mapper.Map<IQueryable<Shop>, IEnumerable<SelectListItem>>(shops);
 
             return result;

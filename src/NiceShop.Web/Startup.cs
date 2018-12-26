@@ -10,12 +10,12 @@ using Microsoft.Extensions.DependencyInjection;
 using NiceShop.AutoMapping;
 using NiceShop.Data;
 using NiceShop.Data.Models;
+using NiceShop.Data.Repositories;
+using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Areas.Administration.Models.BindingModels;
 using NiceShop.Web.Areas.Administration.Models.ViewModels;
-using NiceShop.Web.Services.Administration;
-using NiceShop.Web.Services.Administration.Contracts;
 
 namespace NiceShop.Web
 {
@@ -72,9 +72,8 @@ namespace NiceShop.Web
                     .ForMember(x => x.Text, x => x.MapFrom(y => y.Name));
             });
 
-            services.AddScoped<IShopsService, ShopsService>();
-            services.AddScoped<IProductsService, ProductsService>();
-            services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped<ProductsService>();
             services.AddScoped<IHomeService, HomeService>();
         }
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NiceShop.Web.Services.Administration.Contracts;
+using NiceShop.Data.Services.Administration.Contracts;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {

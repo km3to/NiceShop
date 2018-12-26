@@ -1,6 +1,6 @@
 ﻿using NiceShop.Web.Models.Administration.ViewModels;
 
-namespace NiceShop.Web.Services.Administration.Contracts
+namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IHomeService
     {

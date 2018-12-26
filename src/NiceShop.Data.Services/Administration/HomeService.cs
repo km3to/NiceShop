@@ -1,41 +1,42 @@
 ﻿using System.Linq;
 using NiceShop.AutoMapping;
+using NiceShop.Data.Models;
+using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Models.Administration.ViewModels;
-using NiceShop.Web.Services.Administration.Contracts;
 
-namespace NiceShop.Web.Services.Administration
+namespace NiceShop.Data.Services.Administration
 {
     public class HomeService : IHomeService
     {
-        private readonly IShopsService shopsService;
-        private readonly ICategoriesService categoryService;
-        private readonly IProductsService productsService;
+        private readonly IRepository<Shop> shopsRepository;
+        private readonly IRepository<Category> categoriesRepository;
+        private readonly IRepository<Product> productsRepository;
 
         public HomeService(
-            IShopsService shopsService, 
-            ICategoriesService categoryService, 
-            IProductsService productsService)
+            IRepository<Shop> shopsRepository,
+            IRepository<Category> categoriesRepository,
+            IRepository<Product> productsRepository)
         {
-            this.shopsService = shopsService;
-            this.categoryService = categoryService;
-            this.productsService = productsService;
+            this.shopsRepository = shopsRepository;
+            this.categoriesRepository = categoriesRepository;
+            this.productsRepository = productsRepository;
         }
 
         public IndexViewModel GetIndexModel()
         {
-            var shops = this.shopsService
-                .GetAll()
+            var shops = this.shopsRepository
+                .ReadAll()
                 .To<IdAndNameViewModel>()
                 .ToList();
 
-            var categories = this.categoryService
-                .GetAll()
+            var categories = this.categoriesRepository
+                .ReadAll()
                 .To<IdAndNameViewModel>()
                 .ToList();
 
-            var products = this.productsService
-                .GetAll()
+            var products = this.productsRepository
+                .ReadAll()
                 .To<DetailsProductViewModel>()
                 .ToList();
 
@@ -51,28 +52,29 @@ namespace NiceShop.Web.Services.Administration
 
         public IndexViewModel GetIndexModelForShop(string id)
         {
-            var shops = this.shopsService
-                .GetAll()
+            var shops = this.shopsRepository
+                .ReadAll()
                 .To<IdAndNameViewModel>()
                 .ToList();
 
-            var categories = this.categoryService
-                .GetAll()
+            var categories = this.categoriesRepository
+                .ReadAll()
                 .To<IdAndNameViewModel>()
                 .ToList();
 
-            var products = this.productsService
-                .GetAllForShop(id)
+            var products = this.productsRepository
+                .ReadAll()
+                .Where(x => x.ShopId == id)
                 .To<DetailsProductViewModel>()
                 .ToList();
 
-            var activeShop = this.shopsService
-                .GetById(id)
+            var activeShop = this.shopsRepository
+                .ReadById(id)
                 .To<IdAndNameViewModel>()
                 .FirstOrDefault();
 
-            var activeCategory = this.categoryService
-                .GetById(id)
+            var activeCategory = this.categoriesRepository
+                .ReadById(id)
                 .To<IdAndNameViewModel>()
                 .FirstOrDefault();
 
@@ -90,28 +92,29 @@ namespace NiceShop.Web.Services.Administration
 
         public IndexViewModel GetIndexModelForCategory(string id)
         {
-            var shops = this.shopsService
-                .GetAll()
+            var shops = this.shopsRepository
+                .ReadAll()
                 .To<IdAndNameViewModel>()
                 .ToList();
 
-            var categories = this.categoryService
-                .GetAll()
+            var categories = this.categoriesRepository
+                .ReadAll()
                 .To<IdAndNameViewModel>()
                 .ToList();
 
-            var products = this.productsService
-                .GetAllForCategory(id)
+            var products = this.productsRepository
+                .ReadAll()
+                .Where(x => x.CategoryId == id)
                 .To<DetailsProductViewModel>()
                 .ToList();
 
-            var activeShop = this.shopsService
-                .GetById(id)
+            var activeShop = this.shopsRepository
+                .ReadById(id)
                 .To<IdAndNameViewModel>()
                 .FirstOrDefault();
 
-            var activeCategory = this.categoryService
-                .GetById(id)
+            var activeCategory = this.categoriesRepository
+                .ReadById(id)
                 .To<IdAndNameViewModel>()
                 .FirstOrDefault();
 

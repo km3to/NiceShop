@@ -1,70 +1,19 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using NiceShop.Data.Models;
-using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Data.Repositories;
 
 namespace NiceShop.Data.Services.Administration
 {
-    public class ProductsService : IProductsService
+    public class ProductsService : EfRepository<Product>
     {
-        private readonly NiceShopDbContext db;
-
-        public ProductsService(NiceShopDbContext db)
+        public ProductsService(NiceShopDbContext db) 
+            : base(db)
         {
-            this.db = db;
-        }
-
-        public IQueryable<Product> GetById(string id)
-        {
-            var result = this.db.Products
-                .Where(x => x.Id == id);
-
-            return result;
-        }
-
-        public async Task<string> CreateAsync(Product product)
-        {
-            // TODO: Proper handling
-            try
-            {
-                await this.db.Products.AddAsync(product);
-                await this.db.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            return product.Id;
-        }
-
-        public IQueryable<Product> GetAll()
-        {
-            var result = this.db.Products;
-
-            return result;
-        }
-
-        public IQueryable<Product> GetAllForShop(string shopId)
-        {
-            var result = this.db.Products
-                .Where(x => x.ShopId == shopId);
-
-            return result;
-        }
-
-        public IQueryable<Product> GetAllForCategory(string categoryId)
-        {
-            var result = this.db.Products
-                .Where(x => x.CategoryId == categoryId);
-
-            return result;
         }
 
         public bool IsNameValid(string name)
         {
-            var result = !this.db.Products.Any(x => x.Name == name);
+            var result = !this.Db.Products.Any(x => x.Name == name);
             return result;
         }
 
@@ -75,7 +24,7 @@ namespace NiceShop.Data.Services.Administration
                 return true;
             }
 
-            var result = !this.db.Products.Any(x => x.Code == code);
+            var result = !this.Db.Products.Any(x => x.Code == code);
             return result;
         }
     }
