@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.ViewModels.Administration.ViewModels;
+using NiceShop.Web.Models.Administration.ViewModels;
 using NiceShop.Web.Services.Administration.Contracts;
 
 namespace NiceShop.Web.Services.Administration
 {
-    // TODO: remove reference to Niceshop.Mappings and move to NiceShop.Web.Services project
     public class HomeService : IHomeService
     {
         private readonly IShopsService shopsService;

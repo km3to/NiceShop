@@ -1,4 +1,4 @@
-﻿namespace NiceShop.ViewModels.Administration.ViewModels
+﻿namespace NiceShop.Web.Models.Administration.ViewModels
 {
     public class IdAndNameViewModel
     {

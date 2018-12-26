@@ -1,7 +1,7 @@
 ﻿using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 
-namespace NiceShop.ViewModels.Administration.ViewModels
+namespace NiceShop.Web.Models.Administration.ViewModels
 {
     public class DetailsProductViewModel : IMapFrom<Product>
     {

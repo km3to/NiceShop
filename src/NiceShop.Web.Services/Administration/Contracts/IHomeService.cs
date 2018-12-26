@@ -1,4 +1,4 @@
-﻿using NiceShop.ViewModels.Administration.ViewModels;
+﻿using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Web.Services.Administration.Contracts
 {
