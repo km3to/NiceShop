@@ -25,16 +25,6 @@ namespace NiceShop.Data.Services.Administration
 
         public IndexViewModel GetIndexModel()
         {
-            var shops = this.shopsRepository
-                .ReadAll()
-                .To<IdAndNameViewModel>()
-                .ToList();
-
-            var categories = this.categoriesRepository
-                .ReadAll()
-                .To<IdAndNameViewModel>()
-                .ToList();
-
             var products = this.productsRepository
                 .ReadAll()
                 .To<DetailsProductViewModel>()
@@ -42,8 +32,6 @@ namespace NiceShop.Data.Services.Administration
 
             var viewModel = new IndexViewModel
             {
-                Categories = categories,
-                Shops = shops,
                 Products = products
             };
 
@@ -52,16 +40,6 @@ namespace NiceShop.Data.Services.Administration
 
         public IndexViewModel GetIndexModelForShop(string id)
         {
-            var shops = this.shopsRepository
-                .ReadAll()
-                .To<IdAndNameViewModel>()
-                .ToList();
-
-            var categories = this.categoriesRepository
-                .ReadAll()
-                .To<IdAndNameViewModel>()
-                .ToList();
-
             var products = this.productsRepository
                 .ReadAll()
                 .Where(x => x.ShopId == id)
@@ -82,8 +60,6 @@ namespace NiceShop.Data.Services.Administration
             {
                 ActiveCategory = activeCategory?.Name,
                 ActiveShop = activeShop?.Name,
-                Categories = categories,
-                Shops = shops,
                 Products = products
             };
 
@@ -92,16 +68,6 @@ namespace NiceShop.Data.Services.Administration
 
         public IndexViewModel GetIndexModelForCategory(string id)
         {
-            var shops = this.shopsRepository
-                .ReadAll()
-                .To<IdAndNameViewModel>()
-                .ToList();
-
-            var categories = this.categoriesRepository
-                .ReadAll()
-                .To<IdAndNameViewModel>()
-                .ToList();
-
             var products = this.productsRepository
                 .ReadAll()
                 .Where(x => x.CategoryId == id)
@@ -122,8 +88,6 @@ namespace NiceShop.Data.Services.Administration
             {
                 ActiveShop = activeShop?.Name,
                 ActiveCategory = activeCategory?.Name,
-                Categories = categories,
-                Shops = shops,
                 Products = products
             };
 

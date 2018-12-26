@@ -8,10 +8,6 @@ namespace NiceShop.Web.Models.Administration.ViewModels
 
         public string ActiveCategory { get; set; }
 
-        public IEnumerable<IdAndNameViewModel> Shops { get; set; }
-
-        public IEnumerable<IdAndNameViewModel> Categories { get; set; }
-
         public IEnumerable<DetailsProductViewModel> Products { get; set; }
     }
 }

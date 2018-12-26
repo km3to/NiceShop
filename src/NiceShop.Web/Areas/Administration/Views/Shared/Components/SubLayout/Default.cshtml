@@ -1,0 +1,28 @@
+﻿@model NiceShop.Web.Models.Administration.ViewModels.SubLayoutViewModel
+
+<div class="row mb-3">
+    <div class="col-5 dropdown">
+        Филтриране по магазин:
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Всички магазини
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            @foreach (var shop in this.Model.Shops)
+            {
+                <a asp-controller="Home" asp-action="IndexForShop" asp-route-id="@shop.Id" class="dropdown-item">@shop.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-5 dropdown">
+        Филтриране по категория:
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Всички категории:
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+            @foreach (var category in this.Model.Categories)
+            {
+                <a asp-controller="Home" asp-action="IndexForCategory" asp-route-id="@category.Id" class="dropdown-item">@category.Name</a>
+            }
+        </div>
+    </div>
+</div>
