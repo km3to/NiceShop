@@ -1,8 +1,11 @@
 ﻿using System.Linq;
+using System.Text;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Data.Services.ServiceConstants;
+using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Data.Services.Administration
@@ -23,75 +26,69 @@ namespace NiceShop.Data.Services.Administration
             this.productsRepository = productsRepository;
         }
 
-        public IndexViewModel GetIndexModel()
+        public HomeIndexViewModel GetIndexModel(SubLayoutInputModel inputModel)
         {
+            var title = new StringBuilder();
+
             var products = this.productsRepository
                 .ReadAll()
-                .To<DetailsProductViewModel>()
-                .ToList();
+                .To<ProductsDetailsViewModel>();
 
-            var viewModel = new IndexViewModel
+            // TODO: Const
+            if (inputModel.Shop != "Всички")
             {
-                Products = products
+                products = products.Where(x => x.ShopName == inputModel.Shop);
+                title.Append($"Продукти за магазин: \"{inputModel.Shop}\"");
+            }
+            else
+            {
+                title.Append("Продукти за всички магазини");
+            }
+
+            // TODO: Const
+            if (inputModel.Category != "Всички")
+            {
+                products = products.Where(x => x.CategoryName == inputModel.Category);
+
+                title.Append($" и категория: \"{inputModel.Category}\"");
+            }
+            else
+            {
+                title.Append(" и всички категории");
+            }
+
+            products = this.SortProducts(products, inputModel.SortTerm);
+            title.Append($" сортирани по {inputModel.SortTerm}");
+
+            var viewModel = new HomeIndexViewModel
+            {
+                Title = title.ToString(),
+                ControlPanel = inputModel,
+                Products = products.ToList()
             };
 
             return viewModel;
         }
 
-        public IndexViewModel GetIndexModelForShop(string id)
+        private IQueryable<ProductsDetailsViewModel> SortProducts(IQueryable<ProductsDetailsViewModel> products, string sortBy)
         {
-            var products = this.productsRepository
-                .ReadAll()
-                .Where(x => x.ShopId == id)
-                .To<DetailsProductViewModel>()
-                .ToList();
-
-            var activeShop = this.shopsRepository
-                .ReadById(id)
-                .To<IdAndNameViewModel>()
-                .FirstOrDefault();
-
-            var activeCategory = this.categoriesRepository
-                .ReadById(id)
-                .To<IdAndNameViewModel>()
-                .FirstOrDefault();
-
-            var viewModel = new IndexViewModel
+            switch (sortBy)
             {
-                ActiveCategory = activeCategory?.Name,
-                ActiveShop = activeShop?.Name,
-                Products = products
-            };
+                case SortType.NameAsc:
+                    products = products.OrderBy(x => x.Name);
+                    break;
+                case SortType.NameDesc:
+                    products = products.OrderByDescending(x => x.Name);
+                    break;
+                case SortType.CountAsc:
+                    products = products.OrderBy(x => x.Count);
+                    break;
+                case SortType.CountDesc:
+                    products = products.OrderByDescending(x => x.Count);
+                    break;
+            }
 
-            return viewModel;
-        }
-
-        public IndexViewModel GetIndexModelForCategory(string id)
-        {
-            var products = this.productsRepository
-                .ReadAll()
-                .Where(x => x.CategoryId == id)
-                .To<DetailsProductViewModel>()
-                .ToList();
-
-            var activeShop = this.shopsRepository
-                .ReadById(id)
-                .To<IdAndNameViewModel>()
-                .FirstOrDefault();
-
-            var activeCategory = this.categoriesRepository
-                .ReadById(id)
-                .To<IdAndNameViewModel>()
-                .FirstOrDefault();
-
-            var viewModel = new IndexViewModel
-            {
-                ActiveShop = activeShop?.Name,
-                ActiveCategory = activeCategory?.Name,
-                Products = products
-            };
-
-            return viewModel;
+            return products;
         }
     }
 }

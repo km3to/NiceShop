@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Web.Models.Administration.InputModels;
+using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
@@ -12,23 +14,9 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             this.homeService = homeService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(SubLayoutInputModel inputModel)
         {
-            var viewModel = this.homeService.GetIndexModel();
-
-            return this.View(viewModel);
-        }
-
-        public IActionResult IndexForShop(string id)
-        {
-            var viewModel = this.homeService.GetIndexModelForShop(id);
-
-            return this.View(viewModel);
-        }
-
-        public IActionResult IndexForCategory(string id)
-        {
-            var viewModel = this.homeService.GetIndexModelForCategory(id);
+            var viewModel = this.homeService.GetIndexModel(inputModel);
 
             return this.View(viewModel);
         }

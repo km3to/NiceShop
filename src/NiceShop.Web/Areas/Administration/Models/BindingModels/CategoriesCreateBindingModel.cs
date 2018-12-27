@@ -2,7 +2,7 @@
 
 namespace NiceShop.Web.Areas.Administration.Models.BindingModels
 {
-    public class CreateCategoryBindingModel
+    public class CategoriesCreateBindingModel
     {
         [Required(ErrorMessage = "Полето {0} е задължително!")]
         [Display(Name = "Име")]

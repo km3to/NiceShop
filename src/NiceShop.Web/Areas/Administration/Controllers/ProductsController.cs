@@ -36,7 +36,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var viewModel = this.productsRepository
                 .ReadById(id)
-                .To<DetailsProductViewModel>()
+                .To<ProductsDetailsViewModel>()
                 .FirstOrDefault();
 
             return this.View(viewModel);
@@ -52,7 +52,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProductBindingModel bindingModel)
+        public async Task<IActionResult> Create(ProductsCreateBindingModel bindingModel)
         {
             if (!this.ModelState.IsValid)
             {

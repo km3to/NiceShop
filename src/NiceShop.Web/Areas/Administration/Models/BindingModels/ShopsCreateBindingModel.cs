@@ -5,7 +5,7 @@ using NiceShop.Data.Models;
 
 namespace NiceShop.Web.Areas.Administration.Models.BindingModels
 {
-    public class CreateShopBindingModel : IMapTo<Shop>, IHaveCustomMappings
+    public class ShopsCreateBindingModel : IMapTo<Shop>, IHaveCustomMappings
     {
         [Required(ErrorMessage = "Полето {0} е задължително!")]
         [Display(Name = "Име")]
@@ -19,7 +19,7 @@ namespace NiceShop.Web.Areas.Administration.Models.BindingModels
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<CreateShopBindingModel, Shop>();
+            configuration.CreateMap<ShopsCreateBindingModel, Shop>();
         }
     }
 }

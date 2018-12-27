@@ -6,7 +6,7 @@ using NiceShop.Web.CustomAttributes.ValidationAttributes;
 namespace NiceShop.Web.Areas.Administration.Models.BindingModels
 {
     // TODO: Validation for CategoryId and ShopId
-    public class CreateProductBindingModel : IMapTo<Product> //, IHaveCustomMappings
+    public class ProductsCreateBindingModel : IMapTo<Product> //, IHaveCustomMappings
     {
         [Display(Name = "Код")]
         [UniqueProductCode(ErrorMessage = "Продукт с такъв код вече съществува!")]
@@ -20,6 +20,10 @@ namespace NiceShop.Web.Areas.Administration.Models.BindingModels
 
         [Display(Name = "Описание")]
         public string Description { get; set; }
+
+        [Display(Name = "Брой")]
+        [Range(0, 9999, ErrorMessage = "Бpойката може да е в диапазона [0 - 999]")]
+        public int Count { get; set; }
 
         [Display(Name = "Категория")]
         public string CategoryId { get; set; }

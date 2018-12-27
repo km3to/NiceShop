@@ -62,8 +62,8 @@ namespace NiceShop.Web
             AutoMapperConfig.RegisterMappings(typeof(DetailsShopViewModel).Assembly);
             services.AddAutoMapper(config =>
             {
-                config.CreateMap<CreateShopBindingModel, Shop>();
-                config.CreateMap<CreateProductBindingModel, Product>();
+                config.CreateMap<ShopsCreateBindingModel, Shop>();
+                config.CreateMap<ProductsCreateBindingModel, Product>();
                 config.CreateMap<Category, SelectListItem>()
                     .ForMember(x => x.Value, x => x.MapFrom(y => y.Id))
                     .ForMember(x => x.Text, x => x.MapFrom(y => y.Name));

@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface ISubLayoutService
     {
-        IEnumerable<IdAndNameViewModel> GetShops();
+        IEnumerable<SelectListItem> GetShops();
 
-        IEnumerable<IdAndNameViewModel> GetCategories();
+        IEnumerable<SelectListItem> GetCategories();
+
+        IEnumerable<SelectListItem> GetOrderTerms();
     }
 }

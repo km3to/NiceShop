@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Components
@@ -13,10 +16,14 @@ namespace NiceShop.Web.Areas.Administration.Components
             this.subLayoutService = subLayoutService;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(SubLayoutInputModel inputModel)
         {
             var viewModel = new SubLayoutViewModel
             {
+                Shop = inputModel.Shop,
+                Category = inputModel.Category,
+                SortTerm = inputModel.SortTerm,
+                SortTerms = this.subLayoutService.GetOrderTerms(),
                 Shops = this.subLayoutService.GetShops(),
                 Categories = this.subLayoutService.GetCategories()
             };

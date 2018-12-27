@@ -31,7 +31,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateCategoryBindingModel bindingModel)
+        public async Task<IActionResult> Create(CategoriesCreateBindingModel bindingModel)
         {
             if (!this.ModelState.IsValid)
             {

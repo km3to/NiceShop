@@ -1,0 +1,14 @@
+﻿using System.Collections.Generic;
+using NiceShop.Web.Models.Administration.InputModels;
+
+namespace NiceShop.Web.Models.Administration.ViewModels
+{
+    public class HomeIndexViewModel
+    {
+        public string Title { get; set; }
+
+        public SubLayoutInputModel ControlPanel { get; set; }
+
+        public IEnumerable<ProductsDetailsViewModel> Products { get; set; }
+    }
+}
