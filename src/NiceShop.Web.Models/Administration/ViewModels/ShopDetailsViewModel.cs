@@ -1,9 +1,9 @@
 ﻿using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 
-namespace NiceShop.Web.Areas.Administration.Models.ViewModels
+namespace NiceShop.Web.Models.Administration.ViewModels
 {
-    public class DetailsShopViewModel : IMapFrom<Shop>
+    public class ShopDetailsViewModel : IMapFrom<Shop>
     {
         public string Name { get; set; }
 

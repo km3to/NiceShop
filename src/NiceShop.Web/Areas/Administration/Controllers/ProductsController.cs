@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
-using NiceShop.Web.Areas.Administration.Models.BindingModels;
-using NiceShop.Web.Areas.Administration.Models.ViewModels;
+using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
@@ -36,7 +35,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         {
             var viewModel = this.productsRepository
                 .ReadById(id)
-                .To<ProductsDetailsViewModel>()
+                .To<ProductDetailsViewModel>()
                 .FirstOrDefault();
 
             return this.View(viewModel);
@@ -52,7 +51,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductsCreateBindingModel bindingModel)
+        public async Task<IActionResult> Create(ProductCreateInputModel inputModel)
         {
             if (!this.ModelState.IsValid)
             {
@@ -60,10 +59,10 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 this.ViewData["categories"] = this.GetAllCategories();
                 this.ViewData["shops"] = this.GetAllShops();
 
-                return this.View(bindingModel);
+                return this.View(inputModel);
             }
 
-            var product = this.mapper.Map<Product>(bindingModel);
+            var product = this.mapper.Map<Product>(inputModel);
             var id = await this.productsRepository.CreateAsync(product);
 
             return this.RedirectToAction("Details", new { id });

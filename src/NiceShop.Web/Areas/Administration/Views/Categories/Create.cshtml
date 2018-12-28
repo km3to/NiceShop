@@ -1,9 +1,9 @@
-﻿@using NiceShop.Web.Areas.Administration.Models.ViewModels
-@model NiceShop.Web.Areas.Administration.Models.BindingModels.CategoriesCreateBindingModel
+﻿@using NiceShop.Web.Models.Administration.ViewModels
+@model NiceShop.Web.Models.Administration.InputModels.CategoryCreateInputModel
 
 @{
     this.ViewData["Title"] = "Create";
-    var categories = this.ViewData["categories"] as IEnumerable<DetailsCategoryViewModel>;
+    var categories = this.ViewData["categories"] as IEnumerable<CategoryDetailsViewModel>;
 }
 
 <h1>Create</h1>

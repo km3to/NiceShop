@@ -32,7 +32,7 @@ namespace NiceShop.Data.Services.Administration
 
             var products = this.productsRepository
                 .ReadAll()
-                .To<ProductsDetailsViewModel>();
+                .To<ProductDetailsViewModel>();
 
             // TODO: Const
             if (inputModel.Shop != "Всички")
@@ -70,7 +70,7 @@ namespace NiceShop.Data.Services.Administration
             return viewModel;
         }
 
-        private IQueryable<ProductsDetailsViewModel> SortProducts(IQueryable<ProductsDetailsViewModel> products, string sortBy)
+        private IQueryable<ProductDetailsViewModel> SortProducts(IQueryable<ProductDetailsViewModel> products, string sortBy)
         {
             switch (sortBy)
             {

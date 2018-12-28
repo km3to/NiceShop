@@ -1,21 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
-using NiceShop.Web.CustomAttributes.ValidationAttributes;
+using NiceShop.Web.Models.ValidationAttributes;
 
-namespace NiceShop.Web.Areas.Administration.Models.BindingModels
+namespace NiceShop.Web.Models.Administration.InputModels
 {
     // TODO: Validation for CategoryId and ShopId
-    public class ProductsCreateBindingModel : IMapTo<Product> //, IHaveCustomMappings
+    public class ProductCreateInputModel : IMapTo<Product> //, IHaveCustomMappings
     {
         [Display(Name = "Код")]
-        [UniqueProductCode(ErrorMessage = "Продукт с такъв код вече съществува!")]
+        [UniqueDbValue(ErrorMessage = "Продукт с такъв код вече съществува!")]
         public string Code { get; set; }
 
         [Display(Name = "Име")]
         [Required(ErrorMessage = "{0}то е задължително!")]
         [MinLength(4, ErrorMessage = "{0}то трябва да е с дължина поне 4 символа!")]
-        [UniqueProductName(ErrorMessage = "Продукт с такова име вече съществува!")]
+        [UniqueDbValue(ErrorMessage = "Продукт с такова име вече съществува!")]
         public string Name { get; set; }
 
         [Display(Name = "Описание")]

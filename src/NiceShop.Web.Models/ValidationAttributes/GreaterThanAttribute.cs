@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NiceShop.Web.CustomAttributes.ValidationAttributes
+namespace NiceShop.Web.Models.ValidationAttributes
 {
     public class GreaterThanAttribute : ValidationAttribute
     {

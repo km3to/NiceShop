@@ -9,6 +9,6 @@ namespace NiceShop.Web.Models.Administration.ViewModels
 
         public SubLayoutInputModel ControlPanel { get; set; }
 
-        public IEnumerable<ProductsDetailsViewModel> Products { get; set; }
+        public IEnumerable<ProductDetailsViewModel> Products { get; set; }
     }
 }

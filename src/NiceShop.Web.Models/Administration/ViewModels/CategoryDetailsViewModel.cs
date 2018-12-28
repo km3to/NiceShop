@@ -1,9 +1,9 @@
 ﻿using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 
-namespace NiceShop.Web.Areas.Administration.Models.ViewModels
+namespace NiceShop.Web.Models.Administration.ViewModels
 {
-    public class DetailsCategoryViewModel : IMapFrom<Category>
+    public class CategoryDetailsViewModel : IMapFrom<Category>
     {
         public string Id { get; set; }
 

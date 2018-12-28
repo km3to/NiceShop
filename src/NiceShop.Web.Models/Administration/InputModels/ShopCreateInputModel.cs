@@ -3,9 +3,9 @@ using AutoMapper;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 
-namespace NiceShop.Web.Areas.Administration.Models.BindingModels
+namespace NiceShop.Web.Models.Administration.InputModels
 {
-    public class ShopsCreateBindingModel : IMapTo<Shop>, IHaveCustomMappings
+    public class ShopCreateInputModel : IMapTo<Shop>, IHaveCustomMappings
     {
         [Required(ErrorMessage = "Полето {0} е задължително!")]
         [Display(Name = "Име")]
@@ -19,7 +19,7 @@ namespace NiceShop.Web.Areas.Administration.Models.BindingModels
 
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
-            configuration.CreateMap<ShopsCreateBindingModel, Shop>();
+            configuration.CreateMap<ShopCreateInputModel, Shop>();
         }
     }
 }

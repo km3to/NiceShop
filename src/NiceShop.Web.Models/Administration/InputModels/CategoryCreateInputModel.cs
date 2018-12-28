@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NiceShop.Web.Areas.Administration.Models.BindingModels
+namespace NiceShop.Web.Models.Administration.InputModels
 {
-    public class CategoriesCreateBindingModel
+    public class CategoryCreateInputModel
     {
         [Required(ErrorMessage = "Полето {0} е задължително!")]
         [Display(Name = "Име")]

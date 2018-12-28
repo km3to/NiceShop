@@ -14,8 +14,8 @@ using NiceShop.Data.Repositories;
 using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.Web.Areas.Administration.Models.BindingModels;
-using NiceShop.Web.Areas.Administration.Models.ViewModels;
+using NiceShop.Web.Models.Administration.InputModels;
+using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Web
 {
@@ -31,7 +31,7 @@ namespace NiceShop.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AutoMapperConfig.RegisterMappings(typeof(DetailsShopViewModel).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(ShopDetailsViewModel).Assembly);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -59,11 +59,11 @@ namespace NiceShop.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            AutoMapperConfig.RegisterMappings(typeof(DetailsShopViewModel).Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(ShopDetailsViewModel).Assembly);
             services.AddAutoMapper(config =>
             {
-                config.CreateMap<ShopsCreateBindingModel, Shop>();
-                config.CreateMap<ProductsCreateBindingModel, Product>();
+                config.CreateMap<ShopCreateInputModel, Shop>();
+                config.CreateMap<ProductCreateInputModel, Product>();
                 config.CreateMap<Category, SelectListItem>()
                     .ForMember(x => x.Value, x => x.MapFrom(y => y.Id))
                     .ForMember(x => x.Text, x => x.MapFrom(y => y.Name));
@@ -73,7 +73,7 @@ namespace NiceShop.Web
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<ProductsService>();
+            services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<IHomeService, HomeService>();
             services.AddScoped<ISubLayoutService, SubLayoutService>();
         }

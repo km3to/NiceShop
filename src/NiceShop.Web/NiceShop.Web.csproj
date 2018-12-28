@@ -6,6 +6,13 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Common\**" />
+    <Content Remove="Common\**" />
+    <EmbeddedResource Remove="Common\**" />
+    <None Remove="Common\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
@@ -21,11 +28,6 @@
     <ProjectReference Include="..\NiceShop.Data.Services\NiceShop.Data.Services.csproj" />
     <ProjectReference Include="..\NiceShop.Data\NiceShop.Data.csproj" />
     <ProjectReference Include="..\NiceShop.Web.Models\NiceShop.Web.Models.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Common\" />
   </ItemGroup>
 
 </Project>

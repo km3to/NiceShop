@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NiceShop.AutoMapping\NiceShop.AutoMapping.csproj" />
     <ProjectReference Include="..\NiceShop.Data.Models\NiceShop.Data.Models.csproj" />
+    <ProjectReference Include="..\NiceShop.Data\NiceShop.Data.csproj" />
   </ItemGroup>
 
 </Project>
