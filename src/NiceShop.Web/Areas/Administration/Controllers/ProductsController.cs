@@ -4,28 +4,27 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
+using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Models.Administration.InputModels;
-using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
     public class ProductsController : BaseAdministrationController
     {
-        private readonly IRepository<Product> productsRepository;
+        private readonly IProductsService productsService;
         private readonly IRepository<Category> categoriesRepository;
         private readonly IRepository<Shop> shopsRepository;
         private readonly IMapper mapper;
 
         public ProductsController(
-            IRepository<Product> productsRepository,
+            IProductsService productsService,
             IRepository<Category> categoriesRepository,
             IRepository<Shop> shopsRepository, 
             IMapper mapper)
         {
-            this.productsRepository = productsRepository;
+            this.productsService = productsService;
             this.categoriesRepository = categoriesRepository;
             this.shopsRepository = shopsRepository;
             this.mapper = mapper;
@@ -33,10 +32,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Details(string id)
         {
-            var viewModel = this.productsRepository
-                .ReadById(id)
-                .To<ProductDetailsViewModel>()
-                .FirstOrDefault();
+            var viewModel = this.productsService.DetailsFor(id);
 
             return this.View(viewModel);
         }
@@ -62,12 +58,13 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 return this.View(inputModel);
             }
 
-            var product = this.mapper.Map<Product>(inputModel);
-            var id = await this.productsRepository.CreateAsync(product);
+            var id = await this.productsService.CreateAsync(inputModel);
+            await this.productsService.SaveImages(id, inputModel.Images);
 
             return this.RedirectToAction("Details", new { id });
         }
         
+        // TODO: Create ViewComponent for those 2 and remove them from here
         private IEnumerable<SelectListItem> GetAllCategories()
         {
             var categories = this.categoriesRepository.ReadAll();

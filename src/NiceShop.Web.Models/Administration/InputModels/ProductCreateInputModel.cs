@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Web.Models.ValidationAttributes;
@@ -34,6 +36,11 @@ namespace NiceShop.Web.Models.Administration.InputModels
         [Display(Name = "Адрес на изображението")]
         [Url]
         public string ImageUrl { get; set; }
+
+        // Raw Image
+        [Display(Name = "файл")]
+        [DataType(DataType.Upload)]
+        public IEnumerable<IFormFile> Images { get; set; }
 
         [Display(Name = "Доставна цена")]
         [Required(ErrorMessage = "{0}то е задължително!")]
