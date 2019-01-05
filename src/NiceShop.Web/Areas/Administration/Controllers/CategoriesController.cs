@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NiceShop.Data.Models;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
@@ -61,14 +61,19 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Delete(string id)
         {
-            var viewModel = this.categoryService.GetById(id);
+            var viewModel = this.categoryService.GetDeleteModel(id);
 
             return this.View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(IdAndNameViewModel inputModel)
+        public async Task<IActionResult> Delete(ShopCategoryDeleteViewModel inputModel)
         {
+            if (inputModel.ProductsCount != 0)
+            {
+                throw new InvalidOperationException("Не можете да изтриете категория, в която има продукти!");
+            }
+
             await this.categoryService.DeleteAsync(inputModel.Id);
 
             return this.RedirectToAction("All");

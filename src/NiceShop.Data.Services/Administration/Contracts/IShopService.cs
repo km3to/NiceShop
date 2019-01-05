@@ -5,11 +5,11 @@ using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Data.Services.Administration.Contracts
 {
-    public interface ICategoryService
+    public interface IShopService
     {
-        IEnumerable<CategoryAllViewModel> GetAll();
+        IEnumerable<ShopAllViewModel> GetAll();
 
-        Task<string> CreateAsync(CategoryCreateInputModel inputModel);
+        Task<string> CreateAsync(ShopCreateInputModel inputModel);
 
         IdAndNameViewModel GetById(string id);
 

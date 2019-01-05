@@ -1,7 +1,7 @@
-﻿@model IEnumerable<NiceShop.Web.Models.Administration.ViewModels.CategoryAllViewModel>
+﻿@model IEnumerable<NiceShop.Web.Models.Administration.ViewModels.ShopAllViewModel>
 
 @{
-    this.ViewData["Title"] = "Всички категории";
+    this.ViewData["Title"] = "Всички магазини";
     int index = 1;
 }
 
@@ -18,16 +18,16 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var category in this.Model)
+    @foreach (var shop in this.Model)
     {
         <tr class="text-center">
             <th class="col-1" scope="row">@(index++)</th>
-            <td class="col-5">@category.Name</td>
-            <td class="col-1">@category.ProductsCount</td>
+            <td class="col-5">@shop.Name</td>
+            <td class="col-1">@shop.ProductsCount</td>
             <td class="col-5">
                 <div class="col">
-                    <a asp-controller="Categories" asp-action="Update" asp-route-id="@category.Id" class="btn btn-dark">Промени</a>
-                    <a asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-dark">Изтрий</a>
+                    <a asp-controller="Shops" asp-action="Update" asp-route-id="@shop.Id" class="btn btn-dark">Промени</a>
+                    <a asp-controller="Shops" asp-action="Delete" asp-route-id="@shop.Id" class="btn btn-dark">Изтрий</a>
                 </div>
             </td>
         </tr>
@@ -36,7 +36,7 @@
 </table>
 
 <div class="row justify-content-center">
-    <a asp-controller="Categories" asp-action="Create" class="btn btn-outline-dark mt-5">Добави категория</a>
+    <a asp-controller="Shops" asp-action="Create" class="btn btn-outline-dark mt-5">Добави магазин</a>
 </div>
 
 @section Scripts {

@@ -1,10 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NiceShop.AutoMapping;
-using NiceShop.Data.Models;
-using NiceShop.Data.Repositories.Contracts;
+using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
 
@@ -12,21 +10,18 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 {
     public class ShopsController : BaseAdministrationController
     {
-        private readonly IRepository<Shop> shopsRepository;
-        private readonly IMapper mapper;
+        private readonly IShopService shopService;
 
-        public ShopsController(IRepository<Shop> shopsRepository, IMapper mapper)
+        public ShopsController(IShopService shopService)
         {
-            this.shopsRepository = shopsRepository;
-            this.mapper = mapper;
+            this.shopService = shopService;
         }
 
-        public IActionResult Details(string id)
+        public IActionResult All()
         {
-            var viewModel = this.shopsRepository
-                .ReadById(id)
-                .To<ShopDetailsViewModel>()
-                .FirstOrDefault();
+            var viewModel = this.shopService
+                .GetAll()
+                .ToList();
 
             return this.View(viewModel);
         }
@@ -44,10 +39,45 @@ namespace NiceShop.Web.Areas.Administration.Controllers
                 return this.View(inputModel);
             }
 
-            var shop = this.mapper.Map<Shop>(inputModel);
-            var id = await this.shopsRepository.CreateAsync(shop);
+            await this.shopService.CreateAsync(inputModel);
 
-            return this.RedirectToAction("Details", new { id });
+            return this.RedirectToAction("All");
+            //return this.RedirectToAction("Details", new { id });
+        }
+
+        public IActionResult Update(string id)
+        {
+            var viewModel = this.shopService.GetById(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(IdAndNameViewModel inputModel)
+        {
+            await this.shopService.UpdateAsync(inputModel);
+
+            return this.RedirectToAction("All");
+        }
+
+        public IActionResult Delete(string id)
+        {
+            var viewModel = this.shopService.GetDeleteModel(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ShopCategoryDeleteViewModel inputModel)
+        {
+            if (inputModel.ProductsCount != 0)
+            {
+                throw new InvalidOperationException("Не можете да изтриете магазин, в който има продукти!");
+            }
+
+            await this.shopService.DeleteAsync(inputModel.Id);
+
+            return this.RedirectToAction("All");
         }
     }
 }

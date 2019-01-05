@@ -11,49 +11,49 @@ using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Data.Services.Administration
 {
-    public class CategoryService : ICategoryService
+    public class ShopService : IShopService
     {
-        private readonly IRepository<Category> categoryRepository;
+        private readonly IRepository<Shop> shopRepository;
         private readonly IMapper mapper;
 
-        public CategoryService(IRepository<Category> categoryRepository, IMapper mapper)
+        public ShopService(IRepository<Shop> shopRepository, IMapper mapper)
         {
-            this.categoryRepository = categoryRepository;
+            this.shopRepository = shopRepository;
             this.mapper = mapper;
         }
 
-        public IEnumerable<CategoryAllViewModel> GetAll()
+        public IEnumerable<ShopAllViewModel> GetAll()
         {
-            var viewModel = this.categoryRepository
+            var viewModel = this.shopRepository
                 .ReadAll()
-                .To<CategoryAllViewModel>()
+                .To<ShopAllViewModel>()
                 .ToList();
 
             return viewModel;
         }
 
-        public async Task<string> CreateAsync(CategoryCreateInputModel inputModel)
+        public async Task<string> CreateAsync(ShopCreateInputModel inputModel)
         {
-            var category = this.mapper.Map<Category>(inputModel);
-            var id = await this.categoryRepository.CreateAsync(category);
+            var category = this.mapper.Map<Shop>(inputModel);
+            var id = await this.shopRepository.CreateAsync(category);
 
             return id;
         }
 
         public IdAndNameViewModel GetById(string id)
         {
-            var category = this.categoryRepository
+            var shop = this.shopRepository
                 .ReadById(id)
                 .FirstOrDefault();
 
-            var viewModel = this.mapper.Map<IdAndNameViewModel>(category);
+            var viewModel = this.mapper.Map<IdAndNameViewModel>(shop);
 
             return viewModel;
         }
 
         public ShopCategoryDeleteViewModel GetDeleteModel(string id)
         {
-            var viewModel = this.categoryRepository
+            var viewModel = this.shopRepository
                 .ReadById(id)
                 .To<ShopCategoryDeleteViewModel>()
                 .FirstOrDefault();
@@ -63,18 +63,18 @@ namespace NiceShop.Data.Services.Administration
 
         public async Task UpdateAsync(IdAndNameViewModel inputModel)
         {
-            var category = this.categoryRepository
+            var category = this.shopRepository
                 .ReadById(inputModel.Id)
                 .FirstOrDefault();
 
             category.Name = inputModel.Name;
 
-            await this.categoryRepository.UpdateAsync(category);
+            await this.shopRepository.UpdateAsync(category);
         }
 
         public async Task DeleteAsync(string id)
         {
-            await this.categoryRepository.DeleteAsync(id);
+            await this.shopRepository.DeleteAsync(id);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿@model NiceShop.Web.Models.Administration.ViewModels.ShopCategoryDeleteViewModel
 
-<h1>Изтриване на категория</h1>
+<h1>Изтриване на магазин</h1>
 
 <form method="post">
     <input asp-for="Id" value="@this.Model.Id" hidden />
     <input asp-for="Name" value="@this.Model.Name" hidden />
     <input asp-for="ProductsCount" value="@this.Model.ProductsCount" hidden />
     <h3>
-        Наистина ли искате да изтиете категория: @(this.Model.Name)?
+        Наистина ли искате да изтиете магазин: @(this.Model.Name)?
     </h3>
     <div class="form-group mt-5">
         <input type="submit" value="Да" class="btn btn-sm btn-outline-success" />

@@ -74,7 +74,7 @@ namespace NiceShop.Web
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            // TODO: ShgopService here register
+            services.AddScoped<IShopService, ShopService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<IHomeService, HomeService>();
