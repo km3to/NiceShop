@@ -63,6 +63,7 @@ namespace NiceShop.Web
             services.AddAutoMapper(config =>
             {
                 config.CreateMap<ShopCreateInputModel, Shop>();
+                config.CreateMap<CategoryCreateInputModel, Category>();
                 config.CreateMap<ProductCreateInputModel, Product>();
                 config.CreateMap<Category, SelectListItem>()
                     .ForMember(x => x.Value, x => x.MapFrom(y => y.Id))
@@ -73,6 +74,8 @@ namespace NiceShop.Web
             });
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            // TODO: ShgopService here register
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<IHomeService, HomeService>();
             services.AddScoped<ISubLayoutService, SubLayoutService>();

@@ -16,6 +16,10 @@ namespace NiceShop.Data.Repositories.Contracts
 
         Task UpdateAsync(TEntity entity);
 
+        Task UpdateAsync(string id);
+
         Task DeleteAsync(TEntity entity);
+
+        Task DeleteAsync(string id);
     }
 }

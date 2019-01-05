@@ -3,10 +3,12 @@ using NiceShop.Data.Models;
 
 namespace NiceShop.Web.Models.Administration.ViewModels
 {
-    public class IdAndNameViewModel : IMapFrom<Shop>
+    public class CategoryAllViewModel : IMapFrom<Category>
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public int ProductsCount { get; set; }
     }
 }

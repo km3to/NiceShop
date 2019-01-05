@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;

@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
-using NiceShop.Data.Repositories.Contracts;
+using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
 
@@ -11,22 +10,24 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 {
     public class CategoriesController : BaseAdministrationController
     {
-        private readonly IRepository<Category> categoriesRepository;
+        private readonly ICategoryService categoryService;
 
-        public CategoriesController(IRepository<Category> categoriesRepository)
+        public CategoriesController(ICategoryService categoryService)
         {
-            this.categoriesRepository = categoriesRepository;
+            this.categoryService = categoryService;
+        }
+
+        public IActionResult All()
+        {
+            var viewModel = this.categoryService
+                .GetAll()
+                .ToList();
+
+            return this.View(viewModel);
         }
 
         public IActionResult Create()
         {
-            var categories = this.categoriesRepository
-                .ReadAll()
-                .To<CategoryDetailsViewModel>()
-                .ToList();
-
-            this.ViewData["categories"] = categories;
-
             return this.View();
         }
 
@@ -37,12 +38,40 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             {
                 return this.View(inputModel);
             }
+            
+            await this.categoryService.CreateAsync(inputModel);
 
-            var category = new Category { Name = inputModel.Name };
+            return this.RedirectToAction("All");
+        }
 
-            await this.categoriesRepository.CreateAsync(category);
+        public IActionResult Update(string id)
+        {
+            var viewModel = this.categoryService.GetById(id);
 
-            return this.RedirectToAction("Create");
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(IdAndNameViewModel inputModel)
+        {
+            await this.categoryService.UpdateAsync(inputModel);
+
+            return this.RedirectToAction("All");
+        }
+
+        public IActionResult Delete(string id)
+        {
+            var viewModel = this.categoryService.GetById(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(IdAndNameViewModel inputModel)
+        {
+            await this.categoryService.DeleteAsync(inputModel.Id);
+
+            return this.RedirectToAction("All");
         }
     }
 }
