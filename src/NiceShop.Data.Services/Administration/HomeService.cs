@@ -26,6 +26,16 @@ namespace NiceShop.Data.Services.Administration
             this.productsRepository = productsRepository;
         }
 
-        
+        public HomeIndexViewModel GetIndexModel()
+        {
+            var shops = this.shopsRepository
+                .ReadAll()
+                .To<IdAndNameViewModel>()
+                .ToList();
+
+            var result = new HomeIndexViewModel{Shops = shops};
+
+            return result;
+        }
     }
 }

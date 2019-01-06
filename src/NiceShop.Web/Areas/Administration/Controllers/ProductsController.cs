@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,6 +9,7 @@ using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration.Contracts;
 using NiceShop.Web.Models.Administration.InputModels;
+using NiceShop.Web.Models.Administration.ViewModels;
 
 namespace NiceShop.Web.Areas.Administration.Controllers
 {
@@ -70,7 +72,42 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
             return this.RedirectToAction("Details", new { id });
         }
-        
+
+        public IActionResult Update(string id)
+        {
+            var viewModel = this.productsService.GetById(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductCreateInputModel inputModel)
+        {
+            await this.productsService.UpdateAsync(inputModel);
+
+            return this.RedirectToAction("All");
+        }
+
+        public IActionResult Delete(string id)
+        {
+            var viewModel = this.productsService.DetailsFor(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(ProductDetailsViewModel viewModel)
+        {
+            if (viewModel.Count != 0)
+            {
+                throw new InvalidOperationException("Не можете да изтриете продукт с количество, различно от 0!");
+            }
+
+            await this.productsService.DeleteAsync(viewModel.Id);
+
+            return this.RedirectToAction("All");
+        }
+
         // TODO: Create ViewComponent for those 2 and remove them from here
         private IEnumerable<SelectListItem> GetAllCategories()
         {

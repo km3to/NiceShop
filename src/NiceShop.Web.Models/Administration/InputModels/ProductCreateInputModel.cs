@@ -8,8 +8,10 @@ using NiceShop.Web.Models.ValidationAttributes;
 namespace NiceShop.Web.Models.Administration.InputModels
 {
     // TODO: Validation for CategoryId and ShopId
-    public class ProductCreateInputModel : IMapTo<Product> //, IHaveCustomMappings
+    public class ProductCreateInputModel : IMapTo<Product>, IMapFrom<Product> //, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         [Display(Name = "Код")]
         [UniqueDbValue(ErrorMessage = "Продукт с такъв код вече съществува!")]
         public string Code { get; set; }

@@ -87,6 +87,39 @@ namespace NiceShop.Data.Services.Administration
             return id;
         }
 
+        public ProductCreateInputModel GetById(string id)
+        {
+            var viewModel = this.productsRepository
+                .ReadById(id)
+                .To<ProductCreateInputModel>()
+                .FirstOrDefault();
+
+            return viewModel;
+        }
+
+        public async Task UpdateAsync(ProductCreateInputModel inputModel)
+        {
+            var productToEdit = this.productsRepository
+                .ReadById(inputModel.Id)
+                .FirstOrDefault();
+
+            if (productToEdit == null)
+            {
+                throw new NullReferenceException($"No propduct with id: {inputModel.Id} in database.");
+            }
+
+            // TODO: Use automapper
+            productToEdit.Code = inputModel.Code;
+            productToEdit.Name = inputModel.Name;
+            productToEdit.Description = inputModel.Description;
+            productToEdit.CategoryId = inputModel.CategoryId;
+            productToEdit.ImageUrl = inputModel.ImageUrl;
+            productToEdit.BoughtFor = inputModel.BoughtFor;
+            productToEdit.Price = inputModel.Price;
+
+            await this.productsRepository.UpdateAsync(productToEdit);
+        }
+
         public ProductDetailsViewModel DetailsFor(string id)
         {
             var viewModel = this.productsRepository
@@ -95,6 +128,11 @@ namespace NiceShop.Data.Services.Administration
                 .FirstOrDefault();
 
             return viewModel;
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            await this.productsRepository.DeleteAsync(id);
         }
 
         public async Task SaveImages(string productId, ICollection<IFormFile> images)

@@ -31,8 +31,15 @@
                 <td class="col-1">@product.Count</td>
                 <td class="col-2">
                     <div class="col">
-                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-dark">Edit</a>
-                        <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-dark">Delete</a>
+                        <a asp-controller="Products" asp-action="Update" asp-route-id="@product.Id" class="btn btn-dark">Edit</a>
+                        @if (product.Count == 0)
+                        {
+                            <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-dark">Delete</a>
+                        }
+                        else
+                        {
+                            <button class="btn btn-dark" disabled>Изтрий</button>
+                        }
                     </div>
                 </td>
             </tr>
