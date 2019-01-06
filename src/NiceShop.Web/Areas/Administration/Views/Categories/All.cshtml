@@ -27,13 +27,14 @@
             <td class="col-5">
                 <div class="col">
                     <a asp-controller="Categories" asp-action="Update" asp-route-id="@category.Id" class="btn btn-dark">Промени</a>
-                    @if (category.ProductsCount == 0)
+                    @*TODO: Use constant*@
+                    @if (category.ProductsCount != 0 || category.Name == "Други")
                     {
-                        <a asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-dark">Изтрий</a>
+                        <button class="btn btn-dark" disabled>Изтрий</button>
                     }
                     else
                     {
-                        <button class="btn btn-dark" disabled>Изтрий</button>
+                        <a asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-dark">Изтрий</a>
                     }
                 </div>
             </td>
