@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
 
-namespace NiceShop.Web.MiddleWares.Seeders
+namespace NiceShop.Web.Common.MiddleWares.Seeders
 {
     public class SeedCategory
     {
@@ -23,8 +23,7 @@ namespace NiceShop.Web.MiddleWares.Seeders
             {
                 var category = new Category
                 {
-                    // TODO: Use constant
-                    Name = "Други",
+                    Name = WebConstants.OtherCategoryName,
                 };
 
                 await categoryRepository.CreateAsync(category);

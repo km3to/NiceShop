@@ -14,7 +14,7 @@ using NiceShop.Data.Repositories;
 using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration;
 using NiceShop.Data.Services.Administration.Contracts;
-using NiceShop.Web.MiddleWares;
+using NiceShop.Web.Common.MiddleWares;
 using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
 
@@ -91,7 +91,6 @@ namespace NiceShop.Web
                 app.UseDatabaseErrorPage();
 
                 app.UseSeedData();
-                app.UseSeedCategory();
             }
             else
             {

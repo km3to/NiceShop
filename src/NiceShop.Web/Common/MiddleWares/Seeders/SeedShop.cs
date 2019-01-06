@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
 
-namespace NiceShop.Web.MiddleWares.Seeders
+namespace NiceShop.Web.Common.MiddleWares.Seeders
 {
     public class SeedShop
     {
@@ -23,8 +23,7 @@ namespace NiceShop.Web.MiddleWares.Seeders
             {
                 var shop = new Shop
                 {
-                    // TODO: Use constant
-                    Name = "Онлайн магазин",
+                    Name = WebConstants.OnlineShopName,
                 };
 
                 await shopRepository.CreateAsync(shop);

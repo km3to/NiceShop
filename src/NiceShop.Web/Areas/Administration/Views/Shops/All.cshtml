@@ -1,4 +1,5 @@
-﻿@model IEnumerable<NiceShop.Web.Models.Administration.ViewModels.ShopAllViewModel>
+﻿@using NiceShop.Web.Common
+@model IEnumerable<NiceShop.Web.Models.Administration.ViewModels.ShopAllViewModel>
 
 @{
     this.ViewData["Title"] = "Всички магазини";
@@ -27,8 +28,7 @@
             <td class="col-5">
                 <div class="col">
                     <a asp-controller="Shops" asp-action="Update" asp-route-id="@shop.Id" class="btn btn-dark">Промени</a>
-                    @*TODO: Use constant*@
-                    @if (shop.ProductsCount != 0 || shop.Name == "Онлайн магазин")
+                    @if (shop.ProductsCount != 0 || shop.Name == WebConstants.OnlineShopName)
                     {
                         <button class="btn btn-dark" disabled>Изтрий</button>
                     }
