@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using NiceShop.AutoMapping;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration.Contracts;
+using NiceShop.Data.Services.ServiceConstants;
 using NiceShop.Web.Models.Administration.InputModels;
 using NiceShop.Web.Models.Administration.ViewModels;
 
@@ -30,6 +32,50 @@ namespace NiceShop.Data.Services.Administration
             this.productsRepository = productsRepository;
             this.hostingEnvironment = hostingEnvironment;
             this.mapper = mapper;
+        }
+
+        public ProductAllViewModel GetAll(SubLayoutInputModel inputModel)
+        {
+            var title = new StringBuilder();
+
+            var products = this.productsRepository
+                .ReadAll()
+                .To<ProductDetailsViewModel>();
+
+            // TODO: Const
+            if (inputModel.Shop != "Всички")
+            {
+                products = products.Where(x => x.ShopName == inputModel.Shop);
+                title.Append($"Продукти за магазин: \"{inputModel.Shop}\"");
+            }
+            else
+            {
+                title.Append("Продукти за всички магазини");
+            }
+
+            // TODO: Const
+            if (inputModel.Category != "Всички")
+            {
+                products = products.Where(x => x.CategoryName == inputModel.Category);
+
+                title.Append($" и категория: \"{inputModel.Category}\"");
+            }
+            else
+            {
+                title.Append(" и всички категории");
+            }
+
+            products = this.SortProducts(products, inputModel.SortTerm);
+            title.Append($" сортирани по {inputModel.SortTerm}");
+
+            var viewModel = new ProductAllViewModel
+            {
+                Title = title.ToString(),
+                ControlPanel = inputModel,
+                Products = products.ToList()
+            };
+
+            return viewModel;
         }
 
         public async Task<string> CreateAsync(ProductCreateInputModel inputModel)
@@ -85,6 +131,27 @@ namespace NiceShop.Data.Services.Administration
                     }
                 }
             }
+        }
+
+        private IQueryable<ProductDetailsViewModel> SortProducts(IQueryable<ProductDetailsViewModel> products, string sortBy)
+        {
+            switch (sortBy)
+            {
+                case SortType.NameAsc:
+                    products = products.OrderBy(x => x.Name);
+                    break;
+                case SortType.NameDesc:
+                    products = products.OrderByDescending(x => x.Name);
+                    break;
+                case SortType.CountAsc:
+                    products = products.OrderBy(x => x.Count);
+                    break;
+                case SortType.CountDesc:
+                    products = products.OrderByDescending(x => x.Count);
+                    break;
+            }
+
+            return products;
         }
     }
 }

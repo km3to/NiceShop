@@ -11,11 +11,11 @@ namespace NiceShop.Data.Services.Administration.Contracts
 
         Task<string> CreateAsync(ShopCreateInputModel inputModel);
 
-        IdAndNameViewModel GetById(string id);
+        ShopCreateInputModel GetById(string id);
 
         ShopCategoryDeleteViewModel GetDeleteModel(string id);
 
-        Task UpdateAsync(IdAndNameViewModel inputModel);
+        Task UpdateAsync(ShopCreateInputModel inputModel);
 
         Task DeleteAsync(string id);
     }

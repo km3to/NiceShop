@@ -3,7 +3,7 @@ using NiceShop.Web.Models.Administration.InputModels;
 
 namespace NiceShop.Web.Models.Administration.ViewModels
 {
-    public class HomeIndexViewModel
+    public class ProductAllViewModel
     {
         public string Title { get; set; }
 

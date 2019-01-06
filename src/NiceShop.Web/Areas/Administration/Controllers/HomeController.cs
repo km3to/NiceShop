@@ -16,9 +16,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Index(SubLayoutInputModel inputModel)
         {
-            var viewModel = this.homeService.GetIndexModel(inputModel);
-
-            return this.View(viewModel);
+            return this.View();
         }
     }
 }

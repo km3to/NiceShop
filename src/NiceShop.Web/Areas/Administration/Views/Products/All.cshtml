@@ -1,11 +1,11 @@
 ﻿@model NiceShop.Web.Models.Administration.ViewModels.ProductAllViewModel
 
 @{
-    this.ViewData["Title"] = "In Development";
+    this.ViewData["Title"] = this.Model.Title;
     int index = 1;
 }
 
-@*<vc:sub-layout input-model=@this.Model.ControlPanel></vc:sub-layout>
+<vc:sub-layout input-model=@this.Model.ControlPanel></vc:sub-layout>
 
 <h3 class="text-center">@this.ViewData["Title"]</h3>
 
@@ -38,4 +38,4 @@
             </tr>
         }
     </tbody>
-</table>*@
+</table>

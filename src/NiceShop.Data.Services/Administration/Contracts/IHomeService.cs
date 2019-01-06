@@ -5,6 +5,6 @@ namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IHomeService
     {
-        HomeIndexViewModel GetIndexModel(SubLayoutInputModel inputModel);
+        
     }
 }

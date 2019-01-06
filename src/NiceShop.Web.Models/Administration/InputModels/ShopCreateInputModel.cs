@@ -5,8 +5,10 @@ using NiceShop.Data.Models;
 
 namespace NiceShop.Web.Models.Administration.InputModels
 {
-    public class ShopCreateInputModel : IMapTo<Shop>, IHaveCustomMappings
+    public class ShopCreateInputModel : IMapTo<Shop>, IMapFrom<Shop>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         [Required(ErrorMessage = "Полето {0} е задължително!")]
         [Display(Name = "Име")]
         public string Name { get; set; }

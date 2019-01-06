@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -40,13 +41,12 @@ namespace NiceShop.Data.Services.Administration
             return id;
         }
 
-        public IdAndNameViewModel GetById(string id)
+        public ShopCreateInputModel GetById(string id)
         {
-            var shop = this.shopRepository
+            var viewModel = this.shopRepository
                 .ReadById(id)
+                .To<ShopCreateInputModel>()
                 .FirstOrDefault();
-
-            var viewModel = this.mapper.Map<IdAndNameViewModel>(shop);
 
             return viewModel;
         }
@@ -61,15 +61,22 @@ namespace NiceShop.Data.Services.Administration
             return viewModel;
         }
 
-        public async Task UpdateAsync(IdAndNameViewModel inputModel)
+        public async Task UpdateAsync(ShopCreateInputModel inputModel)
         {
-            var category = this.shopRepository
+            var shopToEdit = this.shopRepository
                 .ReadById(inputModel.Id)
                 .FirstOrDefault();
 
-            category.Name = inputModel.Name;
+            if (shopToEdit == null)
+            {
+                throw new NullReferenceException($"No shop with id: {inputModel.Id} in database.");
+            }
 
-            await this.shopRepository.UpdateAsync(category);
+            shopToEdit.Name = inputModel.Name;
+            shopToEdit.Address = inputModel.Address;
+            shopToEdit.Description = inputModel.Description;
+
+            await this.shopRepository.UpdateAsync(shopToEdit);
         }
 
         public async Task DeleteAsync(string id)

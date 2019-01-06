@@ -5,6 +5,8 @@ namespace NiceShop.Web.Models.Administration.ViewModels
 {
     public class ShopDetailsViewModel : IMapFrom<Shop>
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

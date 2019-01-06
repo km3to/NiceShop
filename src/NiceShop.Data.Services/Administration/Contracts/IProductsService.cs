@@ -8,6 +8,8 @@ namespace NiceShop.Data.Services.Administration.Contracts
 {
     public interface IProductsService
     {
+        ProductAllViewModel GetAll(SubLayoutInputModel inputModel);
+
         Task<string> CreateAsync(ProductCreateInputModel inputModel);
 
         ProductDetailsViewModel DetailsFor(string id);

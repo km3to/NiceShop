@@ -30,6 +30,13 @@ namespace NiceShop.Web.Areas.Administration.Controllers
             this.mapper = mapper;
         }
 
+        public IActionResult All(SubLayoutInputModel inputModel)
+        {
+            var viewModel = this.productsService.GetAll(inputModel);
+
+            return this.View(viewModel);
+        }
+
         public IActionResult Details(string id)
         {
             var viewModel = this.productsService.DetailsFor(id);

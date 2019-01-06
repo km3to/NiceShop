@@ -53,7 +53,7 @@ namespace NiceShop.Web.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(IdAndNameViewModel inputModel)
+        public async Task<IActionResult> Update(ShopCreateInputModel inputModel)
         {
             await this.shopService.UpdateAsync(inputModel);
 
