@@ -27,7 +27,14 @@
             <td class="col-5">
                 <div class="col">
                     <a asp-controller="Categories" asp-action="Update" asp-route-id="@category.Id" class="btn btn-dark">Промени</a>
-                    <a asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-dark">Изтрий</a>
+                    @if (category.ProductsCount == 0)
+                    {
+                        <a asp-controller="Categories" asp-action="Delete" asp-route-id="@category.Id" class="btn btn-dark">Изтрий</a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-dark" disabled>Изтрий</button>
+                    }
                 </div>
             </td>
         </tr>

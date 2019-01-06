@@ -51,8 +51,13 @@ namespace NiceShop.Data.Services.Administration
             return viewModel;
         }
 
-        public async Task SaveImages(string productId, IEnumerable<IFormFile> images)
+        public async Task SaveImages(string productId, ICollection<IFormFile> images)
         {
+            if (images == null || !images.Any())
+            {
+                return;
+            }
+
             foreach (var image in images)
             {
                 if (image.FileName.EndsWith(".jpeg") || image.FileName.EndsWith(".jpg") || image.FileName.EndsWith(".png"))

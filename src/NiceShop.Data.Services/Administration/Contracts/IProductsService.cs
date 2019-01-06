@@ -12,6 +12,6 @@ namespace NiceShop.Data.Services.Administration.Contracts
 
         ProductDetailsViewModel DetailsFor(string id);
 
-        Task SaveImages(string productId, IEnumerable<IFormFile> images);
+        Task SaveImages(string productId, ICollection<IFormFile> images);
     }
 }

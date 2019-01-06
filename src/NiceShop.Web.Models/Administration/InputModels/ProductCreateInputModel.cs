@@ -40,7 +40,7 @@ namespace NiceShop.Web.Models.Administration.InputModels
         // Raw Image
         [Display(Name = "файл")]
         [DataType(DataType.Upload)]
-        public IEnumerable<IFormFile> Images { get; set; }
+        public ICollection<IFormFile> Images { get; set; }
 
         [Display(Name = "Доставна цена")]
         [Required(ErrorMessage = "{0}то е задължително!")]
