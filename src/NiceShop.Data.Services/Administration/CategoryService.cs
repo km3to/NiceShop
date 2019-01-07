@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using NiceShop.AutoMapping;
+using NiceShop.Common;
 using NiceShop.Data.Models;
 using NiceShop.Data.Repositories.Contracts;
 using NiceShop.Data.Services.Administration.Contracts;
@@ -14,11 +15,19 @@ namespace NiceShop.Data.Services.Administration
     public class CategoryService : ICategoryService
     {
         private readonly IRepository<Category> categoryRepository;
+        private readonly IRepository<Shop> shopRepository;
+        private readonly IRepository<ShopCategory> shopCategoryRepository;
         private readonly IMapper mapper;
 
-        public CategoryService(IRepository<Category> categoryRepository, IMapper mapper)
+        public CategoryService(
+            IRepository<Category> categoryRepository,
+            IRepository<Shop> shopRepository,
+            IRepository<ShopCategory> shopCategoryRepository,
+            IMapper mapper)
         {
             this.categoryRepository = categoryRepository;
+            this.shopRepository = shopRepository;
+            this.shopCategoryRepository = shopCategoryRepository;
             this.mapper = mapper;
         }
 
@@ -35,9 +44,22 @@ namespace NiceShop.Data.Services.Administration
         public async Task<string> CreateAsync(CategoryCreateInputModel inputModel)
         {
             var category = this.mapper.Map<Category>(inputModel);
-            var id = await this.categoryRepository.CreateAsync(category);
+            var shop = this.shopRepository
+                .ReadAll()
+                .FirstOrDefault(x => x.Name == WebConstants.OnlineShopName);
 
-            return id;
+            var categoryId = await this.categoryRepository.CreateAsync(category);
+            var shopId = shop.Id;
+            
+            var shopCategory = new ShopCategory
+            {
+                CategoryId = categoryId,
+                ShopId = shopId,
+            };
+
+            await this.shopCategoryRepository.CreateAsync(shopCategory);
+
+            return categoryId;
         }
 
         public IdAndNameViewModel GetById(string id)

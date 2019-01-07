@@ -23,7 +23,9 @@ namespace NiceShop.Web.Areas.Administration.Controllers
 
         public IActionResult Manage(string id)
         {
-            return this.View((object)id);
+            var viewModel = this.homeService.GetManageModel(id);
+
+            return this.View(viewModel);
         }
     }
 }

@@ -1,9 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NiceShop.Data.Models
 {
     public class Product : BaseModel
     {
+        public Product()
+        {
+            this.Items = new HashSet<Item>();
+        }
+
         public string Code { get; set; }
 
         public string Name { get; set; }
@@ -21,6 +27,8 @@ namespace NiceShop.Data.Models
         public string ShopId { get; set; }
 
         public virtual Shop Shop { get; set; }
+
+        public virtual IEnumerable<Item> Items { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal BoughtFor { get; set; }

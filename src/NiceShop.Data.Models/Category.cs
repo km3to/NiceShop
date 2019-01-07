@@ -7,6 +7,7 @@ namespace NiceShop.Data.Models
         public Category()
         {
             this.Products = new HashSet<Product>();
+            this.Shops = new HashSet<ShopCategory>();
         }
 
         public string Name { get; set; }
@@ -20,5 +21,7 @@ namespace NiceShop.Data.Models
         public virtual Category ChildCategory { get; set; }
 
         public virtual IEnumerable<Product> Products { get; set; }
+
+        public virtual IEnumerable<ShopCategory> Shops { get; set; }
     }
 }

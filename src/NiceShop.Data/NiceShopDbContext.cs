@@ -12,6 +12,8 @@ namespace NiceShop.Data
         }
 
         // TODO: Add entities here.
+        public DbSet<Item> Items { get; set; }
+
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Category> Categories { get; set; }
